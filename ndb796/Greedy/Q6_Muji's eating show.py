@@ -1,7 +1,7 @@
 '''
 프로그래머스 - https://programmers.co.kr/learn/courses/30/lessons/42891?language=python3
 
-< 무지의 먹방 라이브 >
+< 무지의 먹방 라이브 > - refine
 
 - 우선순위 큐를 이용하여, (음식의 양, 음식 번호) 삽입
 - 최소 힙으로 구성되어 있으므로, pop으로 가장 음식의 양이 적다는 것을 이용
@@ -21,14 +21,12 @@ def solution(food_times, k):
 
     length = len(food_times)      # 음식의 개수
     prev = 0                      # 이전에 음식을 먹는 동안 걸린 시간
-    sum_val = 0                   # 지금까지 음식을 먹는 동안 걸린 시간
 
     while True:
         # (양이 가장 적은 음식을 먹는 데에 걸리는 시간 - 이전에 음식을 먹는 동안 걸린 시간)  * 총 음식의 종류 가 k보다 클 경우
         if k > (q[0][0] - prev) * length:          
             k -= (q[0][0] - prev) * length         
             prev = q[0][0]                         # 이전 음식 시간 재설정
-            sum_val += (q[0][0] - prev) * length   # 지금까지 먹는데 걸린 시간에 추가
             heapq.heappop(q)                       # 가장 양이 적은 음식을 다 먹어치움
             length -= 1
         else:
@@ -54,7 +52,6 @@ def solution(food_times, k):
 #             if food[0] > 0:
 #                 times.append(food)
 #     return food[1]                            # k초가 되고 난 후, 먹어야 하는 음식 출력
-
 
 food_times = list(map(int, input().split()))
 k = int(input())
