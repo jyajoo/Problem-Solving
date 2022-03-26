@@ -23,3 +23,16 @@ for i in s:
         result *= i
 
 print(result)
+
+'''
+'''
+data = input()
+result = int(data[0])  # 첫 번째 숫자 대입해두기
+
+for i in range(1, len(data)): # 두 번째 숫자부터 시작
+    num = int(data[i])
+    if num <= 1 or result <= 1:
+        result += num
+    else:
+        result *= num
+print(result)
