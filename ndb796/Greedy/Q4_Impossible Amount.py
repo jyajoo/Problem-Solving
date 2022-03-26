@@ -8,14 +8,21 @@
 
 n = int(input())
 coins = list(map(int, input().split()))
-
+answer = 0
 coins.sort(reverse=True)
 
-for i in range(1, sum(coins) + 2):
+# for i in range(1, sum(coins) + 2)
+# sum(coins)까지 모두 만들 수 있는 경우, sum(coins) + 1의 결과가 출력될 수 있도록 한다.
+for i in range(1, sum(coins) + 1):   
     result = i
     for j in coins:
         if j <= result:
             result -= j
     if result != 0:
-        print(i)
+        answer = i
         break
+
+if answer != 0:
+    print(answer)
+else:
+    print(sum(coins) + 1)  # sum(coins)까지 만들 수 없는 금액이 없는 경우
