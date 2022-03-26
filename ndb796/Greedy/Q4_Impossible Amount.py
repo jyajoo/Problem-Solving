@@ -26,3 +26,21 @@ if answer != 0:
     print(answer)
 else:
     print(sum(coins) + 1)  # sum(coins)까지 만들 수 없는 금액이 없는 경우
+
+'''
+- 동전 단위를 오름차순으로 정렬한다.
+- 동전 단위가 target보다 크지는 않는지 확인하여 target인 금액도 만들 수 있는지 확인
+- target - 1까지 만들 수 있는 상태인지 확인
+'''
+n = int(input())
+coins = list(map(int, input().split()))
+answer = 0
+coins.sort()
+target = 1           
+
+for i in coins:
+    if target < i:
+        break
+    else:
+        target += i  # target - 1까지 모든 금액을 만들 수 있다.
+print(target)
