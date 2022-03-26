@@ -19,3 +19,22 @@ for i in s:
     prev = i
 
 print(min(cnt_one, cnt_zero))   # 1과 0의 그룹 수 중 적은 값 출력
+
+'''
+- 책에서의 풀이
+'''
+data = input()
+cnt0 = cnt1 = 0
+
+if data[0] == '1':
+    cnt0 += 1
+else:
+    cnt1 += 1
+
+for i in range(1, len(data)):
+    if data[i] != data[i - 1]:
+        if data[i] == '1':
+            cnt0 += 1
+        else:
+            cnt1 += 1
+print(min(cnt0, cnt1))
