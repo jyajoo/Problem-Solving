@@ -8,8 +8,9 @@
 - 남은 시간과 음식의 총 개수를 이용하여 최종적으로 먹어야 하는 음식의 번호를 출력한다.
 '''
 
-import heapq  # 우선순위 큐
-
+import heapq
+from operator import length_hint
+from unittest import result  # 우선순위 큐
 
 def solution(food_times, k):
     q = []
@@ -34,6 +35,35 @@ def solution(food_times, k):
             q.sort(key=lambda x: x[1])             # 음식 번호순대로 오름차순 정렬
             return q[i][1]
 
+'''
+'''
+def solution(food_tiems, k):
+    if sum(food_tiems) < k:
+        return -1
+    
+    q = []
+    for i in range(len(food_tiems)):
+        heapq.heappush(q, (food_tiems[i], i + 1))  # 음식 시간, 음식 번호 
+    
+    sum_val = prev = 0
+    length = len(food_tiems)
+
+    # sum_val + (현재 음식 시간 - 이전 음식 시간) * 음식 개수가 k보다 작은지
+    while sum_val + ((q[0][0] - prev) * length) <= k:
+        now = heapq.heappop(q)[0]
+        sum_val += (now - prev) * length
+        length -= 1
+        prev = now
+
+    result = sorted(q, key = lambda x : x[1])
+    return result[(k - sum_val) % length][1]
+
+
+
+food_times = list(map(int, input().split()))
+k = int(input())
+print(solution(food_times, k))
+
 ''' pop과 append를 반복하는 방법으로, 시간 초과 발생..'''
 # from collections import deque
 # def solution(food_times, k):
@@ -52,7 +82,3 @@ def solution(food_times, k):
 #             if food[0] > 0:
 #                 times.append(food)
 #     return food[1]                            # k초가 되고 난 후, 먹어야 하는 음식 출력
-
-food_times = list(map(int, input().split()))
-k = int(input())
-print(solution(food_times, k))
