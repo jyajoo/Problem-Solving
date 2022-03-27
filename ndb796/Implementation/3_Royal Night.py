@@ -3,6 +3,26 @@
 
 - 상하좌우 2칸 이동 (상하-좌우 1칸 이동, 좌우-상하 1칸 이동)
 '''
+
+n = input()
+y = ord(n[0]) - 96   # int(ord(n[0])) - int(ord('a')) + 1
+x = int(n[1])
+chess = []
+
+# 이동할 수 있는 8가지 방향
+steps = [(-2, -1), (-2, 1), (2, -1), (2, 1), (-1, 2), (1, 2), (-1, -2), (1, -2)]
+result = 0
+for step in steps:
+    nx = x + step[0]
+    ny = y + step[1]
+    if nx <= 0 or nx > 8 or ny <= 0 or ny > 8:
+        continue
+    result += 1
+print(result)
+
+'''
+'''
+
 chess = []
 n = input()
 y = ord(n[0]) - 96
