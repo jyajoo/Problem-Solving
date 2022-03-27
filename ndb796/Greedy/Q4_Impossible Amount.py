@@ -39,8 +39,8 @@ coins.sort()
 target = 1           
 
 for i in coins:
-    if target < i:
+    if target < i:   # target보다 i가 큰 경우, target을 만들 수 없다.
         break
     else:
-        target += i  # target - 1까지 모든 금액을 만들 수 있다.
+        target += i  # target보다 i가 작은 경우, 1부터 target - 1까지 모든 금액을 만들 수 있다.
 print(target)
