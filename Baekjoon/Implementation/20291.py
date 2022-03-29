@@ -21,3 +21,15 @@ for i in a:
     # print(i, end = " ")
     # print(ex[i])
     print(i, ex[i])
+
+'''
+'''
+n = int(input())
+ex = dict()
+for _ in range(n):
+    a = input().split('.')[1]
+    if a not in ex.keys():
+        ex[a] = 1
+    else:
+        ex[a] += 1
+
