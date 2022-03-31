@@ -1,7 +1,12 @@
 '''
 < 게임 개발 >
 
+- 바라보는 방향에 따라 회전 방향 정하기
+- 회전시켜가며 다음으로 이동할 수 있는지 확인
+- 이동하고, 모든 방향 이동할 수 없다면 뒤로 이동하기
+- 뒤로 이동하지 못할 경우, 멈추기
 '''
+
 n, m = map(int, input().split())
 a, b, d = map(int, input().split())
 
@@ -31,7 +36,6 @@ step = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 fail_step = [(1, 0), (0, -1), (-1, 0), (0, 1)]
 
 result = 1
-
 
 while True:
     cnt = 0 # 4 방향 모두 못가는 경우
@@ -63,4 +67,61 @@ while True:
             b = nb
             # print(a, b, d)
 
+print(result)
+
+
+'''
+- 방문한 곳은 따로 c로 확인해줬었는데, 바다인 1로 표현해주어도 된다.
+- 왼쪽 회전의 way[]를 함수로 표현
+- 맵의 외곽은 모두 바다로 주어지므로 벗어나는지 확인할 필요가 없다.
+'''
+
+n, m = map(int, input().split())
+a, b, d = map(int, input().split())
+
+check = [[0] * m for _ in range(n)]
+check[a][b] = 1   # 현재 좌표 방문 처리
+
+place = []
+for i in range(n):
+    place.append(list(map(int, input().split())))
+
+# 북, 동, 남, 서 방향
+da = [-1, 0, 1, 0]
+db = [0, 1, 0, -1]
+
+# 왼쪽으로 회전
+def turn_left():
+    global d
+    d -= 1
+    if d == -1:
+        d = 3
+
+# 시뮬레이션 시작
+result = 1
+turn_time = 0
+
+while True:
+    turn_left()
+    na = a + da[d]
+    nb = b + db[d]
+    if check[na][nb] == 0 and place[na][nb] == 0:  # 방문하지 않았고, 육지라면
+        check[na][nb] = 1
+        a = na
+        b = nb
+        result += 1
+        turn_time = 0
+        continue
+    else:
+        turn_time += 1
+    
+    if turn_time == 4:
+        na = a - da[d]
+        nb = b - db[d]
+        if place[a][b] == 0:
+            a = na
+            b = nb
+        else:
+            break
+        turn_time = 0
 print(result)
