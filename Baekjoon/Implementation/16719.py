@@ -5,13 +5,15 @@
 - AINK와 ALIK 중 AINK가 사전 순으로 더 앞이다.
 
 - [출력 초과]
+반례 : ACC(무한 반복)
+중복되는 문자로 인해 인덱스 사용시, 최초 인덱스를 출력하므로 실패.
+- check로 방문 표기하여 해결
 '''
 
 def print_result():
     for i in result:
         print(i, end="")
     print()
-
 
 n = input()
 idx = [0]     # 정렬 첫 문자로부터 오른쪽 부분을 슬라이싱하며, 첫 문자들의 인덱스 리스트.
@@ -32,6 +34,7 @@ for i in range(len(idx) - 1):
     arr = n[idx[i + 1]: idx[i] - 1]   # 기존 문자열에서 result에 포함되지 않은 부분 슬라이싱
     arr_sort = sorted(arr)
 
-    for j in arr_sort:                # 정렬된 순으로 arr + idx[i + 1] (기존 문자열에서의 인덱스)를 찾아 대입
+    # 정렬된 순으로 arr + idx[i + 1] (기존 문자열에서의 인덱스)를 찾아 대입
+    for j in arr_sort:
         result[arr.index(j) + idx[i + 1]] = j
         print_result()
