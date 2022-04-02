@@ -1,40 +1,51 @@
 '''
 < ZOAC >
 
-- 보여주지 않은 문자 중, 추가했을 때의 문자열이 사전 순으로 가장 앞에 오도록
+- 보여주지 않은 문자 중, 추가했을 때의 문자열이 사전 순으로 가장 앞에 오도록 한다.
 - AINK와 ALIK 중 AINK가 사전 순으로 더 앞이다.
 
 - [출력 초과]
 반례 : ACC(무한 반복)
 중복되는 문자로 인해 인덱스 사용시, 최초 인덱스를 출력하므로 실패.
-- check로 방문 표기하여 해결
+- visit로 방문 표기하여 해결해보자.
+- 오른쪽 부분 슬라이싱 후, 왼쪽 부분 풀스캔하며 사전 순으로 추가하는 방식
+-> 왼쪽 부분에서도 다시 오른쪽 부분을 슬라이싱해나가야 하는 방식으로 바꾸기로 했다.
+
+기준이 되는 start와 end를 설정하여 슬라이싱해준다.
+start를 덱에 보관해두며, 더이상 오른쪽 부분으로 이동할 수 없을 경우,
+보관해둔 이전 인덱스를 통해 왼쪽 부분을 슬라이싱할 수 있도록 한다.
+- [틀렸습니다] <반례를 찾아보자..!>
 '''
+from collections import deque
 
 def print_result():
-    for i in result:
-        print(i, end="")
+    for i in range(len(n)):
+        if visit[i] == 1:
+            print(n[i], end='')
     print()
 
 n = input()
-idx = [0]     # 정렬 첫 문자로부터 오른쪽 부분을 슬라이싱하며, 첫 문자들의 인덱스 리스트.
-x = -1        # 인덱스 초깃값
-result = [''] * len(n)
+visit = [0] * len(n)
+prev = deque()
+prev.append(0)
+start = 0
+end = len(n)
 
-while x + 1 < len(n):
-    arr = n[x + 1:]                # 정렬된 첫 문자를 찾고, 그 문자의 오른쪽 부분 슬라이싱.
-    s = sorted(arr)                # 사전 순 정렬
-    x = n.index(s[0])
-    idx.append(x + 1)              # 정렬 첫 문자의 인덱스 + 1 값을 보관한다.
-    result[n.index(s[0])] = s[0]   # 기존 문자열에서 인덱스를 찾고, 해당 인덱스에 값 대입
+while 0 in visit:
+    if start == end:
+        end = prev.pop() - 1
+        start = prev.pop()
+        prev.append(start)
+    arr = n[start: end]
+    arr = sorted(arr)
+    for i in range(start, end):                     # 7, 9(8)    [0, 3, 7]
+        if arr[0] == n[i] and visit[i] == 0:
+            visit[i] = 1
+            start = i + 1
+            prev.append(start)
+            if start == end:
+                end = prev.pop() - 1
+                start = prev.pop() 
+                prev.append(start)
+            break
     print_result()
-
-idx.sort(reverse=True)
-
-for i in range(len(idx) - 1):
-    arr = n[idx[i + 1]: idx[i] - 1]   # 기존 문자열에서 result에 포함되지 않은 부분 슬라이싱
-    arr_sort = sorted(arr)
-
-    # 정렬된 순으로 arr + idx[i + 1] (기존 문자열에서의 인덱스)를 찾아 대입
-    for j in arr_sort:
-        result[arr.index(j) + idx[i + 1]] = j
-        print_result()
