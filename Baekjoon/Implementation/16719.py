@@ -14,7 +14,6 @@
 기준이 되는 start와 end를 설정하여 슬라이싱해준다.
 start를 덱에 보관해두며, 더이상 오른쪽 부분으로 이동할 수 없을 경우,
 보관해둔 이전 인덱스를 통해 왼쪽 부분을 슬라이싱할 수 있도록 한다.
-- [틀렸습니다] <반례를 찾아보자..!>
 '''
 from collections import deque
 
@@ -38,14 +37,15 @@ while 0 in visit:
         prev.append(start)
     arr = n[start: end]
     arr = sorted(arr)
-    for i in range(start, end):                     # 7, 9(8)    [0, 3, 7]
-        if arr[0] == n[i] and visit[i] == 0:
-            visit[i] = 1
-            start = i + 1
-            prev.append(start)
-            if start == end:
-                end = prev.pop() - 1
-                start = prev.pop() 
+    if start != end:
+        for i in range(start, end):                  
+            if arr[0] == n[i] and visit[i] == 0:
+                visit[i] = 1
+                start = i + 1
                 prev.append(start)
-            break
-    print_result()
+                if start == end:
+                    end = prev.pop() - 1
+                    start = prev.pop() 
+                    prev.append(start)
+                break
+        print_result()
