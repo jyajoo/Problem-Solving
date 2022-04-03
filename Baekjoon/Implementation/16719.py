@@ -43,9 +43,5 @@ while 0 in visit:
                 visit[i] = 1
                 start = i + 1
                 prev.append(start)
-                if start == end:
-                    end = prev.pop() - 1
-                    start = prev.pop() 
-                    prev.append(start)
                 break
         print_result()
