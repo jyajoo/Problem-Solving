@@ -30,7 +30,7 @@ prev.append(0)
 start = 0
 end = len(n)
 
-while 0 in visit:              # 모든 문자가 방문될 때까지 반복      
+while 0 in visit:              # 모든 문자가 방문될 때까지 반복, in 연산자의 시간복잡도는 O(N)
     arr = n[start: end]
     arr = sorted(arr)
     if start == end:           # start와 end가 같다면, 리스트 슬라이싱으로 아무 값도 담을 수 없다.
