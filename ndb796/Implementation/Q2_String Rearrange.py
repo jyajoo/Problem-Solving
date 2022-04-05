@@ -18,3 +18,23 @@ for i in s:
         result += i
 
 print(result + str(x))
+
+'''
+책에서의 풀이
+- isalpha로 알파벳인지 확인한다.
+- join으로 하나의 문자열로 이어준다.
+'''
+s = input()
+result = []
+value = 0
+
+for i in s:
+    if i.isalpha():
+        result.append(i)
+    else:
+        value += int(i)
+result.sort()
+if value != 0:
+    result.append(str(value))
+
+print(''.join(result))
