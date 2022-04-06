@@ -3,66 +3,83 @@
 
 < 문자열 압축 >
 
-- 런타임 에러 문자열이 하나만 입력되는 경우를 고려하지 않음.
+- 런타임 에러 (문자열이 하나만 입력되는 경우를 고려하지 않음.)
 '''
 
-# s = input()
-# answer = []
+s = input()
+answer = []
 
 
-# def min_val(arr):
-#     prev = arr[0]
-#     cnt = 1
-#     result = ""
-#     for i in range(1, len(arr)):
-#         if prev == arr[i]:
-#             cnt += 1
-#         else:
-#             if cnt > 1:
-#                 result += str(cnt) + prev
-#             else:
-#                 result += prev
-#             cnt = 1
-#             prev = arr[i]
-#     if cnt > 1:
-#         result += str(cnt) + prev
-#     else:
-#         result += prev
-#     answer.append(len(result))
+def min_val(arr):
+    prev = arr[0]
+    cnt = 1
+    result = ""
+    for i in range(1, len(arr)):
+        if prev == arr[i]:
+            cnt += 1
+        else:
+            if cnt > 1:
+                result += str(cnt) + prev
+            else:
+                result += prev
+            cnt = 1
+            prev = arr[i]
+    if cnt > 1:
+        result += str(cnt) + prev
+    else:
+        result += prev
+    answer.append(len(result))
 
 
-# def solution(s):
-#     if len(s) == 1:
-#         return 1
+def solution(s):
+    if len(s) == 1:
+        return 1
 
-#     for i in range(1, len(s)//2 + 1): # 단위는 1에서 len(s)//2까지 가능하다.
-#         arr = []
-#         couple = ''
-#         left = 0
-#         right = i
-#         for j in range(len(s)//i):    # len(s) // 단위 만큼 반복하여 문자열을 단위만큼 나눠 묶는다.
-#             couple = s[left:right]
-#             arr.append(couple)
-#             left = right
-#             right += i
+    for i in range(1, len(s)//2 + 1): # 단위는 1에서 len(s)//2까지 가능하다.
+        arr = []
+        couple = ''
+        left = 0
+        right = i
+        for j in range(len(s)//i):    # len(s) // 단위 만큼 반복하여 문자열을 단위만큼 나눠 묶는다.
+            couple = s[left:right]
+            arr.append(couple)
+            left = right
+            right += i
 
-#         if len(s) % i != 0:           # 단위로 나눠떨어지지 않는 경우, 남아버린 문자열을 묶어버린다.
-#             arr.append(s[left:])
+        if len(s) % i != 0:           # 단위로 나눠떨어지지 않는 경우, 남아버린 문자열을 묶어버린다.
+            arr.append(s[left:])
 
-#         min_val(arr)
+        min_val(arr)
 
-#     return min(answer)
+    return min(answer)
 
 
-# print(solution(s))
+print(solution(s))
 
 '''
-단위만큼 묶어서 arr을 구성하는 방법
+코드를 좀 더 간결하게
 
 - 리스트 슬라이싱, 초깃값:최댓값:증감값 이용하기
+- ''를 추가해주어 if 문을 줄일 수 있도록 한다.
 '''
 s = input()
 
-for i in range(1, len(s) // 2):  # 단위는 1에서 len(s)//2까지 가능하다.
-    arr = [s[j:j+i] for j in range(0, len(s), i)]
-    print(arr)
+def solution(s):
+    answer = len(s)
+    for i in range(1, len(s) // 2 + 1):                     # 단위는 1에서 len(s)//2까지 가능하다.
+        arr = [s[j:j+i] for j in range(0, len(s), i)]   # 단위만큼 문자열을 나눈다.
+        arr.append('')
+        prev = arr[0]
+        cnt = 1
+        length = 0
+        for j in range(1, len(arr)):
+            if prev == arr[j]:
+                cnt += 1
+            else:
+                length += len(prev) + (len(str(cnt)) if cnt > 1 else 0)
+                prev = arr[j]
+                cnt = 1
+        answer = (length if answer > length else answer)
+    return answer
+
+print(solution(s))
