@@ -57,17 +57,17 @@ def solution(s):
 print(solution(s))
 
 '''
-코드를 좀 더 간결하게
 
 - 리스트 슬라이싱, 초깃값:최댓값:증감값 이용하기
-- ''를 추가해주어 if 문을 줄일 수 있도록 한다.
+- ''를 추가해주어 남은 문자열을 처리하는 if 문을 줄일 수 있도록 한다.
+- 리스트 컴프리헨션 사용
 '''
 s = input()
 
 def solution(s):
     answer = len(s)
-    for i in range(1, len(s) // 2 + 1):                     # 단위는 1에서 len(s)//2까지 가능하다.
-        arr = [s[j:j+i] for j in range(0, len(s), i)]   # 단위만큼 문자열을 나눈다.
+    for step in range(1, len(s) // 2 + 1):                     # 단위는 1에서 len(s)//2까지 가능하다.
+        arr = [s[j : j + step] for j in range(0, len(s), step)]       # 단위만큼 문자열을 나눈다.
         arr.append('')
         prev = arr[0]
         cnt = 1
@@ -79,7 +79,30 @@ def solution(s):
                 length += len(prev) + (len(str(cnt)) if cnt > 1 else 0)
                 prev = arr[j]
                 cnt = 1
-        answer = (length if answer > length else answer)
+        # answer = (length if answer > length else answer)
+        answer = min(answer, length) 
     return answer
 
 print(solution(s))
+
+
+'''
+책에서의 코드
+
+'''
+def solution(s):
+    answer = len(s)
+    for step in range(1, len(s) // 2 + 1):
+        compressed = ""
+        prev = s[0:step]
+        count = 1
+        for j in range(step, len(s), step):
+            if prev == s[j:j + step]:
+                count += 1
+            else:
+                compressed += str(count) + prev if count >= 2 else prev
+                prev = s[j : j + step]
+                count = 1
+        compressed += str(count) + prev if count >= 2 else prev
+        answer = min(answer, len(compressed))
+    return answer
