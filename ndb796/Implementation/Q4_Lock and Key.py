@@ -15,20 +15,52 @@ lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]
 
 # 열쇠 회전 - 1열을 역순으로 1행으로 만든다.
 def rotation(key):
-    key = []
+    rotate = []
     for i in range(len(key)):
-        rotate = []
+        row = []
         for j in range(len(key) - 1, -1, -1):
-            rotate.append(key[j][i])
-        key.append(rotate)
-    return key
+            row.append(key[j][i])
+        rotate.append(row)
+    return rotate
+
+def allOne(expan):
+    lenEx = len(expan) // 3
+    for i in range(lenEx, lenEx * 2):
+        for j in range(lenEx, lenEx * 2):
+            if expan[i][j] != 1:
+                return False
+    return True
 
 def solution(key, lock):
     lenKey = len(key)
     lenLock = len(lock)
-    expan = [[0] * lenLock * 3 for _ in range(lenLock * 3)]   # 3배 확장한 곳에 자물쇠를 배치한다.
+
+    # 3배 확장한 곳에 자물쇠를 배치한다.
+    expan = [[0] * lenLock * 3 for _ in range(lenLock * 3)]   
     for i in range(lenLock):
         for j in range(lenLock):
             expan[i + lenLock][j + lenLock] = lock[i][j]
 
+    for _ in range(4):
+        
+        key = rotation(key)
+
+        for x in range(1, lenLock * 2):
+            for y in range(1, lenLock * 2):
+
+                # 열쇠 넣기
+                for i in range(lenKey):
+                    for j in range(lenKey):
+                        expan[x + i][y + j] += key[i][j]
+
+                # 모두 1일 되는지 확인
+                if allOne(expan):
+                    return True
+
+                # 열쇠 빼기
+                for i in range(lenKey):
+                    for j in range(lenKey):
+                        expan[x + i][y + j] -= key[i][j]
+    return False
+    
 solution(key, lock)
