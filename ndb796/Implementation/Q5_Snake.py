@@ -13,6 +13,7 @@ from collections import deque
 
 n = int(input())   # 보드의 크기
 board = [[0] * n for _ in range(n)]
+board[0][0] = 2
 
 k = int(input())   # 사과의 개수 (1행 1열에는 사과가 없다.)
 for _ in range(k):
@@ -24,7 +25,8 @@ direct = []
 for _ in range(l):
     direct.append((input().split()))
 
-head = tail = [0, 0]
+head= [0, 0]
+tail = [0, 0]
 time = 0
 process = deque()
 
@@ -36,22 +38,23 @@ ld = [(2, 3), (3, 2), (1, 0), (0, 1)]
 
 idx = 3  # 처음 이동은 오른쪽
 while True:
-    x, y = head[0], head[1]
-    process.append([x,y])
-    board[head[0]][head[1]] = 2
 
     head[0] += move[idx][0]
     head[1] += move[idx][1]
     time += 1
+    x, y = head[0], head[1]
+    process.append([x, y])
 
-    if head[0] == n or head[1] == n or board[head[0]][head[1]] == 2:
+
+    if head[0] == n or head[1] == n or head[0] < 0 or head[1] < 0 or board[head[0]][head[1]] == 2:
         print(time)
         break
 
-    if board[head[0]][head[1]] != 1: 
+    if board[head[0]][head[1]] != 1:
         board[tail[0]][tail[1]] = 0
         a = process.popleft()
         tail = a
+    board[head[0]][head[1]] = 2
 
     for i in direct:
         if int(i[0]) == time:
