@@ -68,6 +68,9 @@ while True:
 
 '''
 
+- 뱀이 위치해있는 곳을 기록해둔다
+- 사과가 없다면, 꼬리부분인 인덱스가 0인 것을 pop 한다.
+- <-1 % 4 = 3, 4 % 4 = 0> 좌우 방향 변경에 따라 인덱스 설정
 '''
 
 n = int(input())
@@ -123,6 +126,8 @@ def simulate():
 
         x, y = nx, ny
         time += 1
+
+        # index가 l(방향 회전 정보의 개수)보다 작은지 확인해주어야 범위에서 벗어나는 오류를 방지한다.
         if index < l and time == direct[index][0]:
             direction = turn(direction, direct[index][1])
             index += 1
