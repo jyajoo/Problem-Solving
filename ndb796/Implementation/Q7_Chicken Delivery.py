@@ -12,9 +12,10 @@ def find_dist(home, chicken):
     for i in home:
         min_val = float('inf')  # 임의의 가장 큰 수
         for j in chicken:
-            dist = abs(i[0] - j[0]) + abs(i[1] - j[1])
-            if min_val > dist:
-                min_val = dist
+            # dist = abs(i[0] - j[0]) + abs(i[1] - j[1])
+            # if min_val > dist:
+            #     min_val = dist
+            min_val = min(min_val, abs(i[0] - j[0]) + abs(i[1] - j[1]))
         city_dist += min_val
     return city_dist
 
@@ -35,13 +36,14 @@ for i in range(n):
             chicken.append((i + 1, j + 1))
 
 # 최대 m개 만큼 치킨집 조합
-result = list(combinations(chicken, m))
+chicken_list = list(combinations(chicken, m))
 
 min_dist = float('inf')
-for i in result:
-    dist = find_dist(home, i)
-    if min_dist > dist:
-        min_dist = dist
+for i in chicken_list:
+    # dist = find_dist(home, i)
+    # if min_dist > dist:
+    #     min_dist = dist
+    min_dist = min(min_dist, find_dist(home, i))
 
 # 가장 작은 도시의 치킨 거리 출력
 print(min_dist)
