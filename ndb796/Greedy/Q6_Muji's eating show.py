@@ -8,9 +8,7 @@
 - 남은 시간과 음식의 총 개수를 이용하여 최종적으로 먹어야 하는 음식의 번호를 출력한다.
 '''
 
-import heapq
-from operator import length_hint
-from unittest import result  # 우선순위 큐
+import heapq  # 우선순위 큐
 
 def solution(food_times, k):
     q = []
