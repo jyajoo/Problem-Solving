@@ -3,9 +3,10 @@
 
 < DFS와 BFS >
 
+- sys로 입력받아 시간 줄이기
 '''
 from collections import deque
-
+import sys
 
 def dfs(v):
     visited[v] = True
@@ -27,17 +28,18 @@ def bfs(v):
                 visited[i] = True
 
 
-n, m, v = map(int, input().split())
+n, m, v = map(int, sys.stdin.readline().split())
 arr = [[] for _ in range(n)]
 visited = [False] * n
 
 for _ in range(m):
-    x, y = map(int, input().split())
+    x, y = map(int, sys.stdin.readline().split())
     arr[x-1].append(y-1)
     arr[y-1].append(x-1)
 
 for i in range(n):
     arr[i].sort()
+    
 
 dfs(v - 1)
 print()
