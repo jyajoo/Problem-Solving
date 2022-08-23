@@ -22,11 +22,11 @@ for i in num2:
         if len(stack) == 0:
             break
 
-        if num[tail] == stack[len(stack) - 1]:
+        if num[top] == stack[len(stack) - 1]:
             top += 1
             stack.pop()
             result.append("-")
-            if tail == n:
+            if top == n:
                 break
         else:
             break
@@ -50,8 +50,8 @@ result = []
 
 push = 0
 pop = 0
-while(True):
 
+while(True):
     while(True):
         if push == n:
             break
