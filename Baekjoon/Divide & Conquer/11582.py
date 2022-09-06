@@ -3,18 +3,21 @@
 
 <치킨 TOP N >
 '''
-# n = int(input())
-# arr = list(map(int, input().split()))
-# k = int(input())
+
+# 불필요한 k번의 연산으로 시간 초과
+
+n = int(input())
+arr = list(map(int, input().split()))
+k = int(input())
 
 
-# for i in range(k):
-#     step = 2 * (i + 1)
-#     for i in range(0, len(arr), step):
-#         arr[i:i+step] = sorted(arr[i:i+step])
+for i in range(k):
+    step = 2 * (i + 1)
+    for i in range(0, len(arr), step):
+        arr[i:i+step] = sorted(arr[i:i+step])
 
-# for i in arr:
-#     print(i, end=" ")
+for i in arr:
+    print(i, end=" ")
 
 ####################################################
 
