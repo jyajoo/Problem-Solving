@@ -32,3 +32,14 @@ for i in range(n):
     if result < numbers[i][0]:
         result = numbers[i][0]
 print(result)
+
+'''
+'''
+n, m = map(int, input().split())
+
+result = 0
+for i in range(n):
+    arr = list(map(int, input().split()))
+    num = min(arr)
+    result = max(result, num)
+print(result)
