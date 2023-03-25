@@ -15,3 +15,20 @@ for i in range(n):
     if a > result:
         result = a    # result = max(result, a)
 print(result)
+
+
+'''
+2023.03.25
+'''
+n, m = map(int, input().split())
+numbers = []
+for _ in range(n):
+    arr = list(map(int, input().split()))
+    arr.sort()
+    numbers.append(arr)
+
+result = numbers[0][0]
+for i in range(n):
+    if result < numbers[i][0]:
+        result = numbers[i][0]
+print(result)
