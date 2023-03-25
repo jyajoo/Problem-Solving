@@ -45,3 +45,55 @@ cnt = (m // (k+1)) * k
 cnt += m % (k+1)
 
 print(cnt * arr[n-1] + (m - cnt) * arr[n-2]) 
+
+
+'''
+2022.03.25
+'''
+n, m, k = map(int, input().split())
+arr = list(map(int, input().split()))
+
+arr.sort(key = lambda x : -x)
+count = 0
+answer = 0
+for _ in range(m):
+    if count == k:
+        answer += arr[1]
+        count = 0
+    else:
+        answer += arr[0]
+        count += 1
+
+print(answer)
+
+'''
+'''
+n, m, k = map(int, input().split())
+arr = list(map(int, input().split()))
+
+arr.sort()
+num1 = arr[n - 1]
+num2 = arr[n - 2]
+
+result = 0
+while True:
+    for i in range(k):
+        if m == 0:
+            break
+        result += num1
+        m -= 1
+    if m == 0:
+        break
+    result += num2
+    m -= 1
+print(result)
+
+'''
+'''
+n, m, k = map(int, input().split())
+arr = list(map(int, input().split()))
+arr.sort()
+
+count = m // (k + 1) * k + m % (k + 1)
+result = arr[n - 1] * count + arr[n - 2] * (m - count)
+print(result)
