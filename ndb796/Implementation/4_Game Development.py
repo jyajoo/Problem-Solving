@@ -125,3 +125,53 @@ while True:
             break
         turn_time = 0
 print(result)
+
+'''
+2023.03.27
+'''
+n, m = map(int, input().split())
+a, b, f = map(int, input().split())
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input().split())))
+
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+count = 0
+result = 1
+while True:
+    if f - 1 < 0:
+        f = 3
+    else:
+        f -= 1
+
+    # 회전하여 원래 바라보던 방향으로 되돌아온 경우, 뒤로 한 칸
+    if count == 3:
+        da = a - dx[f]
+        db = b - dy[f]
+        if arr[da][db] == 1:
+            break
+        else:
+            a = da
+            b = db
+        count = 0
+    else:
+        da = a + dx[f]
+        db = b + dy[f]
+
+    if da < 0 or da > n or db < 0 or db > m:
+        count += 1
+        continue
+
+    if arr[da][db] == 1:
+        count += 1
+        continue
+    else:
+        a = da
+        b = db
+        arr[a][b] = 1
+        result += 1
+        count = 0
+
+print(result)    
