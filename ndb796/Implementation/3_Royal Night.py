@@ -66,3 +66,18 @@ for i in range(2,4):    # 좌우 2칸 이동
         cnt += 1
 
 print(cnt)
+
+'''
+2023.03.27
+'''
+n = input()
+move = [(-1, -2), (1, -2), (-1, 2), (1, 2), (-2, -1), (2, -1), (-2, 1), (2, 1)]
+
+x = int(n[1])
+y = ord(n[0]) - 96
+result = 0
+for a,  b in move:
+    if a + x < 1 or a + x > 8 or b + y < 1 or b + y > 8:
+        continue
+    result += 1
+print(result)
