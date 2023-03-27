@@ -28,3 +28,18 @@ for i in range(h + 1):
                 cnt += 1
 
 print(cnt)
+
+
+'''
+2023.03.27
+'''
+n = int(input())
+result = 0
+
+for i in range(n + 1):
+    if i == 3:
+        result += 60 * 60
+    else:
+        result += 15 * 60 + 45 * 15
+
+print(result)
