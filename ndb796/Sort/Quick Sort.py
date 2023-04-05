@@ -1,10 +1,10 @@
 '''
 < 퀵 정렬 >
 '''
-arr = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8]
+arr = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
 
 def quick(arr, start, end):
-    if end - start < 2:
+    if end - start < 1:
         return
     pivot = arr[start]
     i, j = 0, 0
@@ -13,7 +13,7 @@ def quick(arr, start, end):
             if pivot < arr[x]:
                 i = x
                 break
-        for x in range(end - 1, start, -1):
+        for x in range(end, start, -1):
             if pivot > arr[x]:
                 j = x
                 break
@@ -22,8 +22,13 @@ def quick(arr, start, end):
                 arr[start], arr[j] = arr[j], arr[start]
                 break
             arr[i], arr[j] = arr[j], arr[i]
-        else:
-            j = start + 1
+        elif i == 0:
+            arr[start:end] = arr[start+1:end+1]
+            arr[end] = pivot
+            j = end - 1
+            break
+        elif j == 0:
+            j = start
             break
     quick(arr, start, j)
     quick(arr, j + 1, end)
