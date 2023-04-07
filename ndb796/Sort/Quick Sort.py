@@ -63,3 +63,21 @@ def quick(arr, start, end):
 
 quick(arr, 0, len(arr) - 1)
 print(arr)
+'''
+'''
+arr = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
+
+def quick(arr):
+    print(arr)
+    if len(arr) <= 1:
+        return arr
+    
+    pivot = arr[0]
+    tail = arr[1:]
+
+    left_side = [x for x in tail if x <= pivot]
+    right_side = [x for x in tail if x > pivot]
+
+    return quick(left_side) + [pivot] + quick(right_side)
+
+print(quick(arr))
