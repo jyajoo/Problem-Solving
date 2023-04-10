@@ -58,3 +58,17 @@ for i in order:
         print("yes", end = " ")
     else:
         print("no", end = " ")
+
+'''
+- 집합 자료형 이용
+'''
+n = int(input())
+product = set(map(int, input().split()))
+m = int(input())
+order = list(map(int, input().split()))
+
+for i in order:
+    if i in product:
+        print("yes", end = " ")
+    else:
+        print("no", end = " ")
