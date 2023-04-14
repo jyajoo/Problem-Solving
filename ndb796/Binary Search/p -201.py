@@ -28,4 +28,24 @@ while True:
     break
 
 '''
+이진탐색으로 풀이
+- 재귀
 '''
+n, m = map(int, input().split())
+arr = list(map(int, input().split()))
+arr.sort(key = lambda x : x)
+
+def binary(start, end, target):
+    middle = (start + end) // 2
+    rice = 0
+    for i in arr:
+        if i - middle > 0:
+            rice += i - middle
+    if rice == target:
+        return middle
+    elif rice > target:
+        return binary(middle + 1, end, target)
+    else:
+        return binary(start, middle - 1, target)
+
+print(binary(0, arr[-1], m))
