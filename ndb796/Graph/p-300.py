@@ -3,6 +3,9 @@
 
 < 도시 분할 계획 >
 """
+import sys
+
+input = sys.stdin.readline
 
 
 def find_parent(parent, a):
