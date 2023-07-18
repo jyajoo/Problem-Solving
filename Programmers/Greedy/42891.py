@@ -29,6 +29,30 @@ def solution(food_times, k):
             return q[i][1]
 
 
+"""
+"""
+
+
+def solution2(food_times, k):
+    if sum(food_times) <= k:
+        return -1
+
+    q = []
+    for i in range(len(food_times)):
+        heapq.heappush(q, (food_times[i], i + 1))
+
+    prev = 0
+    length = len(food_times)
+
+    while (q[0][0] - prev) * length < k:
+        k -= (q[0][0] - prev) * length
+        length -= 1
+        prev, _ = heapq.heappop(q)
+
+    result = sorted(q, key=lambda x: x[1])
+    return result[k % length][1]
+
+
 food_times = [8, 6, 4]
 k = 15
-print(solution(food_times, k))
+print(solution2(food_times, k))
