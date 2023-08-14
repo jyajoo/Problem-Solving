@@ -9,3 +9,7 @@ import math
 input = sys.stdin.readline
 w, r = map(int, input().split())
 print(math.trunc(w * (1 + r/30)))
+
+print(int(w * (1 + r/30)))
+
+print((w * (30 + r)) // 30)
