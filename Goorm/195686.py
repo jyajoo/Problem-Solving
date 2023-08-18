@@ -27,3 +27,58 @@ for i in K2:
         break
     prev = i
 print(result)
+
+"""
+"""
+import sys
+
+input = sys.stdin.readline
+
+N = int(input())
+K = list(map(int, input().split()))
+
+top_val = max(K)
+top = K.index(top_val)
+
+K1 = K[:top]
+K2 = K[top:]
+
+K1.sort()
+K2.sort(reverse=True)
+
+sortedK = K1 + K2
+result = 0
+for i in range(N):
+    if K[i] != sortedK[i]:
+        result = 0
+        break
+    else:
+        result += K[i]
+
+print(result)
+
+"""
+"""
+import sys
+
+input = sys.stdin.readline
+
+N = int(input())
+K = list(map(int, input().split()))
+
+top_val = max(K)
+top = K.index(top_val)
+
+K1 = K[:top]
+K2 = K[top:]
+
+K1.sort()
+K2.sort(reverse=True)
+
+sortedK = K1 + K2
+for i in range(N):
+    if K[i] != sortedK[i]:
+        print(0)
+        break
+else:
+    print(sum(K))
