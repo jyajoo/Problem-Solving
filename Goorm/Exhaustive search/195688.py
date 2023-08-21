@@ -9,7 +9,7 @@ from itertools import product
 input = sys.stdin.readline
 
 n = int(input())  # 문자열 길이
-arr = input()  # 문자열 S
+arr = input().rstrip()  # 문자열 S
 
 # (1, 1, n - 2)로 가장 큰 수는 n - 2이므로 1부터 n - 1까지로 설정
 num = [i for i in range(1, n - 1)]
@@ -24,7 +24,7 @@ for x in prod:
         i, j, k = x[0], x[1], x[2]
         a = arr[:i]
         b = arr[i : i + j]
-        c = arr[i + j :].strip()
+        c = arr[i + j :]
         str_list.append((a, b, c))
 
 # p에 중복 제거하고 담기
