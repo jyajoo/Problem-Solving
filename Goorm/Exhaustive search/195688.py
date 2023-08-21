@@ -18,18 +18,18 @@ num = [i for i in range(1, n - 1)]
 prod = list(product(num, repeat=3))
 
 # 중복 순열 중 합이 n인 것만 추출
-index_list = []
-for p in prod:
-    if sum(p) == n:
-        i, j, k = p[0], p[1], p[2]
+str_list = []
+for x in prod:
+    if sum(x) == n:
+        i, j, k = x[0], x[1], x[2]
         a = arr[:i]
         b = arr[i : i + j]
         c = arr[i + j :].strip()
-        index_list.append((a, b, c))
+        str_list.append((a, b, c))
 
 # p에 중복 제거하고 담기
 p = set()
-for a, b, c in index_list:
+for a, b, c in str_list:
     p.add(a)
     p.add(b)
     p.add(c)
@@ -38,7 +38,7 @@ p.sort()
 
 # p에서 인덱스 + 1 값으로 result 구하기
 result = 0
-for a, b, c in index_list:
+for a, b, c in str_list:
     a = p.index(a)
     b = p.index(b)
     c = p.index(c)
