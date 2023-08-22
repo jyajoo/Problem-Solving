@@ -45,3 +45,38 @@ for a, b, c in str_list:
     result = max(result, a + b + c + 3)
 
 print(result)
+
+"""
+- 조합을 이용하여 풀이
+"""
+
+import sys
+from itertools import combinations
+
+input = sys.stdin.readline
+
+n = int(input())  # 문자열 길이
+arr = input().strip()  # 문자열 S
+
+p = set()
+
+num = [i for i in range(1, n)]
+
+combi = list(combinations(num, 2))
+
+for f, s in combi:
+    p.add(arr[:f])
+    p.add(arr[f:s])
+    p.add(arr[s:])
+
+p = sorted(list(p))
+
+result = 0
+for f, s in combi:
+    temp = 0
+    temp += p.index(arr[:f]) + 1
+    temp += p.index(arr[f:s]) + 1
+    temp += p.index(arr[s:]) + 1
+    result = max(result, temp)
+
+print(result)
