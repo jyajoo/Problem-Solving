@@ -4,7 +4,6 @@
 < GameJam>
 """
 import sys
-import re
 
 input = sys.stdin.readline
 
@@ -40,14 +39,15 @@ breaker = False
 
 # 구름 계산
 while not breaker:
-    count, command = "", ""
-    for i in info[a][b]:
-        if str.isdigit(i):
-            count += i
-        else:
-            command += i
-
-    count = int(count)
+    # count, command = "", ""
+    # for i in info[a][b]:
+    #     if str.isdigit(i):
+    #         count += i
+    #     else:
+    #         command += i
+ 
+    # count = int(count)
+    count, command = int(info[a][b][:-1]), info[a][b][-1]
     index = {"U": 0, "D": 1, "L": 2, "R": 3}.get(command)
     for _ in range(count):
         a = (a + dx[index]) % n
@@ -66,14 +66,7 @@ breaker = False
 
 # 플레이어 계산
 while not breaker:
-    count, command = "", ""
-    for i in info[x][y]:
-        if str.isdigit(i):
-            count += i
-        else:
-            command += i
-
-    count = int(count)
+    count, command = int(info[x][y][:-1]), info[x][y][-1]
     index = {"U": 0, "D": 1, "L": 2, "R": 3}.get(command)
     for _ in range(count):
         x = (x + dx[index]) % n
