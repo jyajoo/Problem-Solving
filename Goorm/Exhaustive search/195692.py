@@ -1,12 +1,14 @@
-'''
+"""
 구름톤 챌린지 - https://level.goorm.io/exam/195692/gamejam/quiz/1
 
 < GameJam>
-'''
+"""
 import sys
+import re
+
 input = sys.stdin.readline
 
-n = int(input()) # 격자 보드 크기
+n = int(input())  # 격자 보드 크기
 
 # 구름과 플레이어의 보드
 board_g = [[0] * n for _ in range(n)]
@@ -38,8 +40,15 @@ breaker = False
 
 # 구름 계산
 while not breaker:
-    count, command = int(info[a][b][0]), info[a][b][1]
-    index = {'U' : 0, 'D' : 1, 'L' : 2, 'R' : 3}.get(command)
+    count, command = "", ""
+    for i in info[a][b]:
+        if str.isdigit(i):
+            count += i
+        else:
+            command += i
+
+    count = int(count)
+    index = {"U": 0, "D": 1, "L": 2, "R": 3}.get(command)
     for _ in range(count):
         a = (a + dx[index]) % n
         b = (b + dy[index]) % n
@@ -57,8 +66,15 @@ breaker = False
 
 # 플레이어 계산
 while not breaker:
-    count, command = int(info[x][y][0]), info[x][y][1]
-    index = {'U' : 0, 'D' : 1, 'L' : 2, 'R' : 3}.get(command)
+    count, command = "", ""
+    for i in info[x][y]:
+        if str.isdigit(i):
+            count += i
+        else:
+            command += i
+
+    count = int(count)
+    index = {"U": 0, "D": 1, "L": 2, "R": 3}.get(command)
     for _ in range(count):
         x = (x + dx[index]) % n
         y = (y + dy[index]) % n
