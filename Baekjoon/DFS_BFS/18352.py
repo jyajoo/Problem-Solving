@@ -21,6 +21,7 @@ for _ in range(m):
 # bfs로 최단 거리 찾기
 result = [-1] * (n + 1)
 result[x] = 0
+# result = [0] * (n + 1)
 
 
 def bfs(x, road):
