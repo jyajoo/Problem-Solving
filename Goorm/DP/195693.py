@@ -3,27 +3,27 @@
 
 < 통증 (2) >
 """
-# import sys
+import sys
 
-# input = sys.stdin.readline
+input = sys.stdin.readline
 
-# n = int(input())
-# a, b = map(int, input().split())
-# result = 0
-# for i in range(n):
-#     if n % b == 0:
-#         result += n // b
-#         n %= b
-#         break
-#     if n < a:
-#         break
-#     n -= a
-#     result += 1
+n = int(input())
+a, b = map(int, input().split())
+result = 0
+for i in range(n):
+    if n % b == 0:
+        result += n // b
+        n %= b
+        break
+    if n < a:
+        break
+    n -= a
+    result += 1
 
-# if n != 0:
-#     print(-1)
-# else:
-#     print(result)
+if n != 0:
+    print(-1)
+else:
+    print(result)
 
 '''
 - DP로 풀이 (바텀업)
