@@ -53,7 +53,6 @@ for i in range(n):
 
 type = list(type.items())
 type.sort(key=lambda x: (-x[1], -x[0]))
-print(type)
 print(type[0][0])
 
 """
@@ -108,5 +107,55 @@ for i in range(n):
 
 type = list(type.items())
 type.sort(key=lambda x: (-x[1], -x[0]))
-print(type)
+print(type[0][0])
+
+"""
+- 비재귀 dfs
+"""
+import sys
+from collections import defaultdict
+
+input = sys.stdin.readline
+
+
+def dfs(x, y, t):
+    stack = [(x, y)]
+    count = 1
+
+    while stack:
+        x, y = stack.pop()
+        for dx, dy in direction:
+            nx, ny = x + dx, y + dy
+            # 마을 밖인 경우 + 건물 유형(t)이 다른 경우 + 이미 방문한 경우
+            if (
+                nx in (-1, n)
+                or ny in (-1, n)
+                or village[nx][ny] != t
+                or visited[nx][ny]
+            ):
+                continue
+            visited[nx][ny] = True
+            stack.append((nx, ny))
+            count += 1
+
+            if count == k:
+                type[t] += 1
+
+
+n, k = map(int, input().split())
+
+village = [list(map(int, input().split())) for _ in range(n)]
+visited = [[False] * n for _ in range(n)]
+type = defaultdict(int)
+direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+for i in range(n):
+    for j in range(n):
+        if not visited[i][j]:
+            type[village[i][j]]
+            visited[i][j] = True
+            dfs(i, j, village[i][j])
+
+type = list(type.items())
+type.sort(key=lambda x: (-x[1], -x[0]))
 print(type[0][0])
