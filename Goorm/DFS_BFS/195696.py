@@ -71,3 +71,38 @@ for _ in range(m):
 visited[k] = True
 result = dfs(k)
 print(visited.count(True), result)
+"""
+- bfs
+"""
+import sys
+from collections import deque
+
+input = sys.stdin.readline
+
+
+def bfs(k):
+    q = deque([k])
+
+    while q:
+        k = q.popleft()
+        for i in sorted(graph[k]):
+            if not visited[i]:
+                visited[i] = True
+                q.append(i)
+                break
+        else:
+            return k
+
+
+n, m, k = map(int, input().split())
+graph = [[] for _ in range(n + 1)]
+visited = [False] * (n + 1)
+visited[k] = True
+
+for _ in range(m):
+    s, e = map(int, input().split())
+    graph[s].append(e)
+    graph[e].append(s)
+
+result = bfs(k)
+print(visited.count(True), result)
