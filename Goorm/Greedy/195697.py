@@ -30,3 +30,24 @@ for p, c in fruit:
 
 
 print(result)
+'''
+'''
+import sys
+
+input = sys.stdin.readline
+
+n, k = map(int, input().split())  # 과일 종류(n), 가진 돈(k)
+fruit = [list(map(int, input().split())) for _ in range(n)]
+fruit.sort(key = lambda x : x[1] // x[0])
+
+result = 0
+while k and fruit:
+    p, c = fruit.pop()
+    if k >= p:
+        result += c
+        k -= p
+    else:
+        result += c // p * k
+        k = 0
+
+print(result)
