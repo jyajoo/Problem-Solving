@@ -5,7 +5,6 @@
 """
 import sys
 from collections import defaultdict
-from collections import deque
 
 input = sys.stdin.readline
 
