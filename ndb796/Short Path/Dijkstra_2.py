@@ -28,8 +28,10 @@ def dijkstra(start):
             continue
 
         for b, c in graph[now]:
-            distance[b] = min(distance[b], distance[now] + c)
-            heapq.heappush(q, (distance[now] + c, b))
+            cost = distance[now] + c
+            if cost < distance[b]:
+                distance[b] = cost
+                heapq.heappush(q, (cost, b))
 
 
 dijkstra(start)
