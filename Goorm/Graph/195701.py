@@ -44,3 +44,47 @@ for i in range(1, n + 1):
         print(-1)
     else:
         print(distance[e])
+
+'''
+- bfs 풀이
+'''
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def bfs(s, i):
+    # 시작 노드가 공사중이라면
+    if s == i:
+        return -1
+    
+    visited = [False] * (n + 1)
+    visited[s] = True
+    queue = deque([s])
+    count = 1
+    while queue:
+        count += 1
+        for _ in range(len(queue)):
+            now = queue.popleft()
+            for x in graph[now]:
+                if x == i or visited[x]:
+                    continue
+
+                if x == e:
+                    return count
+                
+                visited[x] = True
+                queue.append(x)
+
+    return -1
+
+
+n, m, s, e = map(int, input().split())
+graph = [[] for _ in range(n + 1)]
+
+for _ in range(m):
+    u, U = map(int, input().split())
+    graph[u].append(U)
+    graph[U].append(u)
+
+for i in range(1, n + 1):
+    print(bfs(s, i))
