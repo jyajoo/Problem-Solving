@@ -50,3 +50,64 @@ if result:
     print("YES")
 else:
     print("NO")
+
+"""
+DFS
+"""
+import sys
+from itertools import combinations
+
+input = sys.stdin.readline
+
+n = int(input())
+board = [list(input().split()) for _ in range(n)]
+
+x = []
+teachers = []
+for i in range(n):
+    for j in range(n):
+        if board[i][j] == "X":
+            x.append((i, j))
+        elif board[i][j] == "T":
+            teachers.append((i, j))
+
+
+def findStudent(x, y):
+    direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    for dx, dy in direction:
+        nx, ny = x + dx, y + dy
+        while nx >= 0 and nx < n and ny >= 0 and ny < n:
+            if board[nx][ny] == "S":
+                return True
+            elif board[nx][ny] == "O":
+                break
+            nx += dx
+            ny += dy
+    return False
+
+
+def dfs(count):
+    global result, board
+    if count == 3:
+        for x, y in teachers:
+            if findStudent(x, y):
+                return
+        result = True
+        return
+                
+
+
+    for i in range(n):
+        for j in range(n):
+            if board[i][j] == "X":
+                board[i][j] = "O"
+                dfs(count + 1)
+                board[i][j] = "X"
+
+
+result = False
+dfs(0)
+if result:
+    print("YES")
+else:
+    print("NO")
