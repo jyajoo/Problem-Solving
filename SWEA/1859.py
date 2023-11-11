@@ -47,3 +47,20 @@ for x in range(T):
         start = max_index + 1
 
     print("#%d %d" % (x + 1, answer))
+"""
+"""
+T = int(input())
+
+for x in range(T):
+    n = int(input())
+    project = list(map(int, input().split()))
+    project = project[::-1]
+    max_project = 0
+    answer = 0
+    for i in project:
+        if i > max_project:
+            max_project = i
+        else:
+            answer += max_project - i
+
+    print("#%d %d" % (x + 1, answer))
