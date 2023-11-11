@@ -20,8 +20,30 @@ for x in range(T):
                 end = i
 
         for i in range(start + 1, end):
-            answer += (max_project - project[i])
+            answer += max_project - project[i]
 
         start = end
 
     print("#{} {}".format(x + 1, answer))
+
+"""
+"""
+T = int(input())
+
+for x in range(T):
+    n = int(input())
+    project = list(map(int, input().split()))
+
+    answer = 0
+    start = 0
+
+    while start < n - 1:
+        max_project = max(project[start:])
+        max_index = project[start:].index(max_project) + start
+
+        for i in range(start, max_index):
+            answer += max_project - project[i]
+
+        start = max_index + 1
+
+    print("#%d %d" % (x + 1, answer))
