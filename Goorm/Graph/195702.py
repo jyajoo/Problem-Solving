@@ -5,52 +5,85 @@
 '''
 
 import sys
-from collections import defaultdict
 from collections import deque
 input = sys.stdin.readline
 
-n, k, q = map(int, input().split())
-arr = []
-direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+def bfs(y, x, d):
+    arr[y][x] = d
+    visited = [[False for _ in range(n)] for _ in range(n)]
+    queue = deque()
+    queue.append((y, x))
+    count = 0
+    while queue:
+        y, x = queue.popleft()
+        if not visited[y][x]:
+            visited[y][x] = True
+            count += 1
 
-for _ in range(n):
-    arr.append(list(input().rstrip()))
+        for dy, dx in direction:
+            ny, nx = y + dy, x + dx
+            if (ny >= 0 and ny < n and nx >= 0 and nx < n 
+            and arr[ny][nx] == arr[y][x]
+            and not visited[ny][nx]):
+                queue.append((ny, nx))
+        
+    if count >= k:
+        count = 0
+        for i in range(n):
+            for j in range(n):
+                if visited[i][j]:
+                    arr[i][j] = "."
+
+n, k, q = map(int, input().split())
+direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+arr= [list(input()) for _ in range(n)]
 
 for _ in range(q):
     y, x, d = input().split()
-    arr[int(y) - 1][int(x) - 1] = d
-    visited = [[False for _ in range(n)] for _ in range(n)]
-    alpha = defaultdict(int)
+    bfs(int(y) - 1, int(x) - 1, d)
 
-    for i in range(n):
-        for j in range(n):
-            if not visited[i][j]:
-                visited[i][j] = True
-                e = arr[i][j]
-                alpha[e] += 1
-                queue = deque()
-                queue.append((i, j))
-                mapping = [(i, j)]
-                while queue:
-                    x, y = queue.popleft()
-                    for dx, dy in direction:
-                        nx, ny = x + dx, y + dy
-                        if (nx >= 0 and nx < n 
-                        and ny >= 0 and ny < n 
-                        and arr[nx][ny] == e 
-                        and not visited[nx][ny]):
-                            visited[nx][ny] = True
-                            alpha[e] += 1
-                            queue.append((nx, ny))
-                            mapping.append((nx, ny))
-                
-                if alpha[e] >= k:
-                    for a, b in mapping:
-                        arr[a][b] = '.'
-                alpha[e] = 0
 
 for i in range(n):
     for j in range(n):
         print(arr[i][j], end = "")
     print()
 
+'''
+'''
+import sys
+input = sys.stdin.readline
+
+def dfs(y, x, d):
+    arr[y][x] = d
+    stack = [(y, x)]
+    visited = set()
+
+    while stack:
+        y, x = stack.pop()
+        if (y, x) not in visited:
+            visited.add((y, x))
+        
+            for dy, dx in direction:
+                ny, nx = y + dy, x + dx
+
+                if ny >= 0 and ny < n and nx >= 0 and nx < n:
+                    if arr[ny][nx] == arr[y][x]:
+                        stack.append((ny, nx))
+            
+            if len(visited) >= k:
+                for y, x in visited:
+                    arr[y][x] = "."
+                
+
+direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+n, k, q = map(int, input().split())
+arr = [list(input()) for _ in range(n)]
+
+for _ in range(q):
+    y, x, d = input().split()
+    dfs(int(y) - 1, int(x) - 1, d)
+
+for i in range(n):
+    for j in range(n):
+        print(arr[i][j], end = "")
+    print()
