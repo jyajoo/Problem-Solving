@@ -22,7 +22,7 @@ import sys
 def dfs(arr, x):
     if len(arr) == m:
         print(*arr)
-    
+        return
     for i in range(x, n + 1):
         if i not in arr:
             dfs(arr + [i], i)

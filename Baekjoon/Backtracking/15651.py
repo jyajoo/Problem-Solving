@@ -12,3 +12,20 @@ numbers = [i for i in range(1, n + 1)]
 lst = list(product(numbers, repeat = m))
 for i in lst:
     print(*i)
+
+"""
+"""
+import sys
+
+def dfs(arr):
+    if len(arr) == m:
+        print(*arr)
+        return
+    
+    for i in range(1, n + 1):
+        dfs(arr + [i])
+
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+dfs([])
