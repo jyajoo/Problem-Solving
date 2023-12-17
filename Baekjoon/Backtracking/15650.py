@@ -14,3 +14,20 @@ lst = list(combinations(numbers, m))
 
 for i in lst:
     print(*i)
+
+"""
+"""
+import sys
+
+def dfs(arr, x):
+    if len(arr) == m:
+        print(*arr)
+    
+    for i in range(x, n + 1):
+        if i not in arr:
+            dfs(arr + [i], i)
+
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+dfs([], 1)
