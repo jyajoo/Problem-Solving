@@ -1,0 +1,82 @@
+"""
+프로그래머스 - https://school.programmers.co.kr/learn/courses/30/lessons/92341
+
+< 주차 요금 계산 >
+"""
+import math
+
+
+def solution(fees, records):
+    answer = []
+    time_records = {}
+    for record in records:
+        time, car_num, move = record.split()
+        h, m = map(int, time.split(":"))
+        time = h * 60 + m
+        if car_num not in time_records:
+            time_records[car_num] = []
+
+        if move == "IN":
+            time_records[car_num].append((time, 0))
+        else:
+            time_records[car_num].append((time, 1))
+
+    car_times = []
+    for car_num in time_records.keys():
+        start = 0
+        total_time = 0
+        for time, move in time_records[car_num]:
+            if move == 0:
+                start = time
+            else:
+                if start < time:
+                    total_time += time - start
+                else:
+                    total_time += (23 * 60 + 59) - start + time
+
+        if move == 0:
+            total_time += (23 * 60 + 59) - start
+
+        car_times.append((car_num, total_time))
+    car_times.sort(key=lambda x: x[0])
+
+    base_time, base_money, unit_time, unit_money = fees
+    for i in range(len(car_times)):
+        time = car_times[i][1]
+        if time <= base_time:
+            answer.append(base_money)
+        else:
+            answer.append(
+                base_money + (math.ceil((time - base_time) / unit_time)) * unit_money
+            )
+
+    return answer
+
+
+# 기본 시간, 기본 요금, 단위 시간, 단위 요금
+fees = [180, 5000, 10, 600]
+records = [
+    "05:34 5961 IN",
+    "06:00 0000 IN",
+    "06:34 0000 OUT",
+    "07:59 5961 OUT",
+    "07:59 0148 IN",
+    "18:59 0000 IN",
+    "19:09 0148 OUT",
+    "22:59 5961 IN",
+    "23:00 5961 OUT",
+]
+
+# fees = [120, 0, 60, 591]
+# records = [
+#     "16:00 3961 IN",
+#     "16:00 0202 IN",
+#     "18:00 3961 OUT",
+#     "18:00 0202 OUT",
+#     "23:58 3961 IN"
+# ]
+
+# fees = [1, 461, 1, 10]
+# records = ["00:00 1234 IN"]
+
+print(solution(fees, records))
