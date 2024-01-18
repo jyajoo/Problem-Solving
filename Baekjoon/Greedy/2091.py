@@ -34,16 +34,51 @@ for i in range(1, x + 1):
             dp[i][n] = dp[i - unit][n]
         dp[i][index] += 1
         dp[i][-1] += 1
-                
 
-result = [0] * 4
-money = 0
-index = 0
-for unit in unit_index.keys():
-    money += dp[x][index] * unit
-    index += 1
 
-if money == x:
-    result = dp[x][:4]
+result = dp[x][:4]
+
+if dp[x][0] == -1:
+    result = [0] * 4
 
 print(*result)
+
+"""
+"""
+import sys
+
+input = sys.stdin.readline
+import copy
+
+x, a, b, c, d = map(int, input().split())
+total_money = a + 5 * b + 10 * c + 25 * d
+coins_count = [(1, a), (5, b), (10, c), (25, d)]
+
+min_count = int(1e9)
+min_coins = [0] * 4
+for i in range(d + 1):
+    money = total_money - 25 * i
+    coins = [0] * 4
+    coins[3] = i
+
+    # 10, 5, 1의 순서로 동전이 최소가 되도록 빼준다
+    for j in [2, 1, 0]:
+        unit, coin_count = coins_count[j]
+        for c in range(coin_count, -1, -1):
+            if money - unit * c >= x:
+                money -= unit * c
+                coins[j] = c
+                break
+
+    if money == x and sum(coins) < min_count:
+        min_count = sum(coins)
+        min_coins = copy.deepcopy(coins)
+
+answer = [0] * 4
+
+if min_count != int(1e9):
+    for i in range(4):
+        _, c = coins_count[i]
+        answer[i] = c - min_coins[i]
+
+print(*answer)
