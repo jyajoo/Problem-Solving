@@ -56,3 +56,34 @@ while pos:
             pos.pop()
 
 print(result)
+"""
+"""
+import sys
+input = sys.stdin.readline
+
+def move(lst):
+    global result
+    while lst:
+        result += abs(lst.pop()) * 2
+        for _ in range(m - 1):
+            if not lst:
+                return
+            lst.pop()
+
+n, m = map(int, input().split())
+pos = [0]
+neg = [0]
+for n in map(int, input().split()):
+    if n > 0:
+        pos.append(n)
+    else:
+        neg.append(n)
+
+pos.sort(key=lambda x: x)
+neg.sort(key=lambda x: -x)
+
+result = 0
+result -= max(pos[-1], -neg[-1])
+move(pos)
+move(neg)
+print(result)
