@@ -1,0 +1,12 @@
+/*
+프로그래머스 - https://school.programmers.co.kr/learn/courses/30/lessons/164668
+
+< 조건에 맞는 사용자와 총 거래금액 조회하기 >
+*/
+SELECT USER_ID, NICKNAME, SUM(PRICE) AS TOTAL_SALES
+FROM USED_GOODS_USER a
+JOIN USED_GOODS_BOARD b ON a.USER_ID = b.WRITER_ID 
+WHERE STATUS = 'DONE'
+GROUP BY USER_ID
+HAVING TOTAL_SALES >= 700000
+ORDER BY TOTAL_SALES
