@@ -1,0 +1,17 @@
+/*
+프로그래머스 - https://school.programmers.co.kr/learn/courses/30/lessons/59042
+
+< 없어진 기록 찾기 >
+*/
+SELECT ANIMAL_ID, NAME
+FROM ANIMAL_OUTS
+WHERE ANIMAL_ID NOT IN (
+    SELECT ANIMAL_ID
+    FROM ANIMAL_INS
+) 
+
+/**/
+SELECT a.ANIMAL_ID, a.NAME
+FROM ANIMAL_OUTS a
+LEFT JOIN ANIMAL_INS b ON a.ANIMAL_ID = b.ANIMAL_ID
+WHERE b.ANIMAL_ID IS NULL
