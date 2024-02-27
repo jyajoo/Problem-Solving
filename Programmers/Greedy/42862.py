@@ -22,3 +22,28 @@ def solution(n, lost, reserve):
         else:
             answer += 1
     return answer
+
+
+'''
+'''
+def solution(n, lost, reserve):
+    answer = n - len(lost)
+    reserve.sort()
+    lost.sort()
+    for i, r in enumerate(reserve):
+        for j, l in enumerate(lost):
+            if r == l:
+                reserve[i] = -1
+                lost[j] = -1
+                answer += 1
+                break
+
+    for i, r in enumerate(reserve):
+        for j, l in enumerate(lost):
+            if abs(r - l) == 1:
+                reserve[i] = -1
+                lost[j] = -1
+                answer += 1
+                break
+
+    return answer
