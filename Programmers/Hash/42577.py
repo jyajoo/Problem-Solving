@@ -20,6 +20,7 @@ def solution(pb):
             return False
     return True
 
+
 '''
 '''
 def solution(pb):
@@ -33,3 +34,26 @@ def solution(pb):
             if temp in hash and temp != i:
                 return False
     return True
+'''
+'''
+def solution(phone_book):
+    answer = True
+
+    books = {}
+    l = set()
+    for i in phone_book:
+        l.add(len(i))
+
+    for i in phone_book:
+        for j in l:
+            if len(i) >= j:
+                if i[:j] not in books:
+                    books[i[:j]] = 1
+                else:
+                    books[i[:j]] += 1
+
+    for i in phone_book:
+        if books[i] > 1:
+            answer = False
+
+    return answer
