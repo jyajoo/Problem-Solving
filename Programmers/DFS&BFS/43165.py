@@ -17,7 +17,7 @@ def solution(numbers, target):
     
     answer = dfs(numbers, target, 0, 0)
     return answer
-        
+
 
 # 풀이 2
 cnt = 0
@@ -35,3 +35,31 @@ def dfs(numbers, target, current, idx):
 def solution(numbers, target):
     dfs(numbers, target, 0, 0)
     return cnt
+
+
+'''
+'''
+def dfs(step, op, numbers, target):
+    global answer
+    global length
+
+    if step == length:
+        if op == target:
+            answer += 1
+        return
+
+    dfs(step + 1, op + int("-" + str(numbers[step])), numbers, target)
+    dfs(step + 1, op + int("+" + str(numbers[step])), numbers, target)
+
+
+length = 0
+answer = 0
+
+
+def solution(numbers, target):
+    global length
+    length = len(numbers)
+
+    dfs(0, 0, numbers, target)
+
+    return answer
