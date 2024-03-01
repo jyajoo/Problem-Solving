@@ -1,11 +1,13 @@
-'''
+"""
 프로그래머스 - https://school.programmers.co.kr/learn/courses/30/lessons/42578
 
-< 위장 >
-'''
+< 의상 >
+"""
+
 # 시간초과
 from itertools import combinations
-from math import prod 
+from math import prod
+
 
 def solution(clothes):
     answer = 0
@@ -21,6 +23,7 @@ def solution(clothes):
             answer += prod(j)
     return answer
 
+
 # 정답
 def solution(clothes):
     answer = 1
@@ -31,7 +34,7 @@ def solution(clothes):
         else:
             wear[j] += 1
     wear = list(wear.values())
-    
+
     for i in wear:
         answer *= i + 1
     return answer - 1
