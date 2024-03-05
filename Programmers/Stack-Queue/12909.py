@@ -1,9 +1,9 @@
-'''
+"""
 프로그래머스 - https://school.programmers.co.kr/learn/courses/30/lessons/12909
 
 < 올바른 괄호 >
 
-'''
+"""
 
 # solution_1
 # def solution(s):
@@ -16,7 +16,7 @@
 #                 stack.pop()
 #             else:
 #                 return False
-    
+
 #     if len(stack) != 0:
 #         return False
 #     else:
@@ -25,6 +25,7 @@
 # solution_2
 
 from collections import deque
+
 
 def solution(s):
     queue = deque()
@@ -41,6 +42,26 @@ def solution(s):
     else:
         return True
 
+
 s = "(()("
 
+
 print(solution(s))
+"""
+"""
+
+
+def solution(s):
+    stack = []
+    for i in s:
+        if i == "(":
+            stack.append("(")
+        else:
+            if len(stack) == 0:
+                return False
+            else:
+                stack.pop()
+    if len(stack) != 0:
+        return False
+
+    return True
