@@ -18,3 +18,34 @@ def solution(word):
     word_lst.sort()
 
     return word_lst.index(word) + 1
+
+
+"""
+"""
+from itertools import product
+
+
+def dfs(w, word):
+    global answer
+    global cnt
+    cnt += 1
+
+    if w == word:
+        answer = cnt
+        return
+
+    if len(w) >= 5:
+        return
+
+    for i in ["A", "E", "I", "O", "U"]:
+        dfs(w + i, word)
+
+
+answer = 0
+cnt = -1
+
+
+def solution(word):
+    global answer
+    dfs("", word)
+    return answer
