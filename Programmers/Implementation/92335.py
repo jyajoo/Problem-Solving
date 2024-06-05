@@ -67,3 +67,35 @@ k = 10
 # n = 1
 # k = 3
 print(solution(n, k))
+
+'''
+'''
+from math import sqrt
+
+
+def is_prime(x):
+    if x < 2:
+        return False
+
+    for i in range(2, int(sqrt(x) + 1)):
+        if x % i == 0:
+            return False
+    return True
+
+
+def solution(n, k):
+    # n을 k진수로 변환
+    arr = []
+    while n != 0:
+        arr.append(n % k)
+        n //= k
+
+    arr = "".join(map(str, arr[::-1]))
+    num = arr.split("0")
+    answer = 0
+    # 0을 기준으로 조건에 맞는 수 탐색
+    for number in num:
+        if number != "" and is_prime(int(number)):
+            answer += 1
+
+    return answer
