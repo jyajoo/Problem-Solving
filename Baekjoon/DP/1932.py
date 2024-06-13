@@ -48,3 +48,33 @@ for i in range(1, n):
         dp[i][j] += max(up_left, up)
 
 print(max(dp[-1]))
+
+'''
+2차원 리스트 사용 -> 1차원 리스트 두개로
+공간 복잡도를 줄일 수 있다.
+'''
+import sys
+
+input = sys.stdin.readline
+
+n = int(input())
+dp_prev = list(map(int, input().split()))
+
+for i in range(1, n):
+    dp_curr = list(map(int, input().split()))
+    for j in range(i + 1):
+        if j == 0:
+            up_left = 0
+        else:
+            up_left = dp_prev[j - 1]
+        
+        if j == i:
+            up = 0
+        else:
+            up = dp_prev[j]
+
+        dp_curr[j] += max(up_left, up)
+    
+    dp_prev = dp_curr
+
+print(max(dp_prev))
