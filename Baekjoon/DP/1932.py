@@ -78,3 +78,26 @@ for i in range(1, n):
     dp_prev = dp_curr
 
 print(max(dp_prev))
+
+'''
+'''
+import sys
+
+input = sys.stdin.readline
+
+n = int(input())
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input().split())))
+    if i == 0:
+        continue
+
+    for j in range(i + 1):
+        if j == 0:  # 오른쪽 위만 가능(인덱스 변동 없음)
+            arr[i][j] += arr[i - 1][j]
+        elif j == i:  # 왼쪽 위만 가능(인덱스 - 1)
+            arr[i][j] += arr[i - 1][j - 1]
+        else:
+            arr[i][j] += max(arr[i - 1][j], arr[i - 1][j - 1])
+
+print(max(arr[-1]))
