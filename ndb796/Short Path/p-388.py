@@ -1,45 +1,45 @@
-"""
-< 정확한 순위 >
+'''
+화성 탐사
 
-6 6
-1 5
-3 4
-4 2
-4 6
-5 2
-5 4
-"""
-
+1
+3
+5 5 4
+3 9 1
+3 2 7
+'''
 import sys
+import heapq
 
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
+t = int(input())
+direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 INF = int(1e9)
-graph = [[INF] * (n + 1) for _ in range(n + 1)]
 
-for i in range(n + 1):
-    for j in range(n + 1):
-        if i == j:
-            graph[i][j] = 0
-            break
+for _ in range(t):
+    n = int(input())
+    graph = [list(map(int, input().split())) for _ in range(n)]
 
-for _ in range(m):
-    a, b = map(int, input().split())
-    graph[a][b] = 1
+    dp = [[INF] * n for _ in range(n)]
+    q = []
+    heapq.heappush(q, (graph[0][0], 0, 0))
+    dp[0][0] = graph[0][0]
 
-for k in range(1, n + 1):
-    for a in range(1, n + 1):
-        for b in range(1, n + 1):
-            graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+    while q:
+        dist, x, y = heapq.heappop(q)
 
-result = 0
-for i in range(1, n + 1):
-    count = 1
-    for j in range(1, n + 1):
-        if graph[i][j] != INF or graph[j][i] != INF:
-            count += 1
-    if count == n:
-        result += 1
+        if dp[x][y] < dist:
+            continue
 
-print(result)
+        for dx, dy in direction:
+            nx = x + dx
+            ny = y + dy
+            if nx < 0 or nx >= n or ny < 0 or ny >= n:
+                continue
+
+            cost = dist + graph[nx][ny]
+            if cost < dp[nx][ny]:
+                dp[nx][ny] = cost
+                heapq.heappush(q, (cost, nx, ny)) 
+
+    print(dp[-1][-1])
