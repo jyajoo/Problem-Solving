@@ -28,7 +28,7 @@ def dijkstra(start):
             continue
 
         for b, c in graph[now]:
-            cost = distance[now] + c
+            cost = dist + c
             if cost < distance[b]:
                 distance[b] = cost
                 heapq.heappush(q, (cost, b))

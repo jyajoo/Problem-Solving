@@ -39,7 +39,9 @@ def dijkstra(start):
         now = get_smallest_node()
         visited[now] = True
         for b, c in graph[now]:
-            distance[b] = min(distance[b], distance[now] + c)
+            cost = distance[now] + c
+            if cost < distance[b]:
+                distance[b] = cost
 
 
 dijkstra(start)
