@@ -57,3 +57,44 @@ while time <= n:
     time += 1
 for i in board:
     print("".join(i))
+
+'''
+'''
+import sys
+
+input = sys.stdin.readline
+
+
+def bomb(board):
+    new_bord = [["O"] * c for _ in range(r)]
+    for i in range(r):
+        for j in range(c):
+            if board[i][j] == "O":
+                new_bord[i][j] = "."
+                for dx, dy in direction:
+                    nx = i + dx
+                    ny = j + dy
+                    if nx < 0 or nx >= r or ny < 0 or ny >= c:
+                        continue
+                    new_bord[nx][ny] = "."
+    return new_bord
+
+
+r, c, n = map(int, input().split())
+board = [list(input().strip()) for _ in range(r)]
+direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+if n <= 1:
+    result = board
+
+elif n % 2 == 0:
+    result = [["O"] * c for _ in range(r)]
+
+elif n % 4 == 3:
+    result = bomb(board)
+
+else:
+    result = bomb(bomb(board))
+
+for i in result:
+    print("".join(i))
