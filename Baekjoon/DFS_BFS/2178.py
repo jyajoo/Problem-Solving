@@ -77,3 +77,34 @@ while q:
             q.append((cnt + 1, nx, ny))
 
 print(result)
+'''
+'''
+import sys
+from collections import deque
+
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+board = [list(map(int, list(input().strip()))) for _ in range(n)]
+direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+visited = [[False] * m for _ in range(n)]
+q = deque()
+q.append((1, 0, 0))
+visited[0][0] = True
+
+while q:
+    cnt, x, y = q.popleft()
+
+    for dx, dy in direction:
+        nx = x + dx
+        ny = y + dy
+
+        if nx < 0 or nx >= n or ny < 0 or ny >= m:
+            continue
+
+        if board[nx][ny] and not visited[nx][ny]:
+            visited[nx][ny] = True
+            q.append((cnt + 1, nx, ny))
+            board[nx][ny] = cnt + 1
+
+print(board[-1][-1])
