@@ -29,10 +29,9 @@ public class App {
             }
         }
 
-        int result = Integer.MAX_VALUE;
         visited[0][0] = true;
         bfs(0, 0);
-
+        System.out.println(board[n-1][m-1]);
     }
     
     public static void bfs(int x, int y) {
@@ -45,8 +44,19 @@ public class App {
             int nowX = now[1];
             int nowY = now[2];
 
-            if (nowX == n - 1 && nowY == m - 1){
-                result
+            for (int[] dir : direction) {
+                int nx = nowX + dir[0];
+                int ny = nowY + dir[1];
+
+                if (nx < 0 || nx >= n || ny < 0 || ny >= m) {
+                    continue;
+                }
+
+                if (board[nx][ny] == 1 && !visited[nx][ny]) {
+                    visited[nx][ny] = true;
+                    queue.add(new int[] { cnt + 1, nx, ny });
+                    board[nx][ny] = cnt + 1;
+                }
             }
         }
     }
