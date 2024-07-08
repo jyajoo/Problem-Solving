@@ -61,3 +61,22 @@ input = sys.stdin.readline
 n, m = list(map(int, input().split()))
 s = []
 dfs()
+
+'''
+'''
+import sys
+
+input = sys.stdin.readline
+
+def permutation(arr, data, r):
+    if len(data) == r:
+        print(*data)
+        return
+    
+    for i in range(len(arr)):
+        new_data = data + [arr[i]]
+        new_arr = arr[:i] + arr[i + 1:]
+        permutation(new_arr, new_data, r)
+
+n, m = map(int, input().split())
+permutation([i for i in range(1, n + 1)], [], m)
