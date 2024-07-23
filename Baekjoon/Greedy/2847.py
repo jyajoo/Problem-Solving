@@ -17,10 +17,8 @@ for i in range(n - 2, -1, -1):
     if num[i] < score:
         score = num[i]
 
-    if num[i] >= score:
-        result += num[i] - score
-        num[i] = score
-        score -= 1
+    result += num[i] - score
+    score -= 1
 
     if score < 1:
         score = 1
