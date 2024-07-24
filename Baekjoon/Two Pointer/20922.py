@@ -28,3 +28,33 @@ for start in range(n):
     cnt[arr[start]] -= 1
 
 print(result)
+'''
+'''
+import sys
+from collections import defaultdict
+
+input = sys.stdin.readline
+
+n, k = map(int, input().split())
+
+num = list(map(int, input().split()))
+
+d = defaultdict(int)
+result = 0
+start = 0
+for i, x in enumerate(num):
+    if d[x] < k:
+        d[x] += 1
+    
+    else:
+        result = max(result, sum(d.values()))
+        d[x] += 1
+        for j in range(start, i):
+            d[num[j]] -= 1
+            if d[num[j]] == 0:
+                d.pop(num[j])
+
+            if num[j] == x:
+                start = j + 1
+                break
+print(max(result, sum(d.values())))
