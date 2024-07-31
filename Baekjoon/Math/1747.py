@@ -3,12 +3,6 @@
 
 < 소수&팰린드롬 >
 """
-
-"""
-백준 - https://www.acmicpc.net/problem/1747
-
-< 소수&팰린드롬 >
-"""
 import sys, math
 
 input = sys.stdin.readline
