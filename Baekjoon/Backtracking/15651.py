@@ -12,6 +12,7 @@ numbers = [i for i in range(1, n + 1)]
 lst = list(product(numbers, repeat = m))
 for i in lst:
     print(*i)
+# print("\n".join(list(map(" ".join, product(num, repeat=m)))))
 
 """
 """
