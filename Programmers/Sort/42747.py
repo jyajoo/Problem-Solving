@@ -14,3 +14,22 @@ def solution(citations):
             answer = i
             break
     return answer
+
+'''
+'''
+from collections import Counter
+
+def solution(citations):
+    citations.sort(reverse = True)
+    counts = dict(Counter(citations))
+    for h in range(len(citations), 0, -1):   
+        x, y = 0, 0
+        
+        for k, v in counts.items():
+            if k >= h:
+                x += v
+            if k <= h:
+                y += v
+        if x >= h and y <= h:
+            return h
+    return 0

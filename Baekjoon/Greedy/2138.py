@@ -68,3 +68,47 @@ if answer == int(1e9):
     answer = -1
 
 print(answer)
+'''
+'''
+import sys
+from copy import deepcopy
+
+input = sys.stdin.readline
+
+
+def switch(s, e):
+    cnt = 0
+    for i in range(1, len(s)):
+        if s[i - 1] != e[i - 1]:  # 둘의 상태가 다르면, 버튼 클릭
+            s[i - 1] = int(not s[i - 1])
+            s[i] = int(not s[i])
+            if i != len(s) - 1:
+                s[i + 1] = int(not s[i + 1])
+
+            cnt += 1
+
+    if s == e:
+        return cnt
+    else:
+        return int(1e9)
+
+
+n = int(input())
+start = list(map(int, input().strip()))
+end = list(map(int, input().strip()))
+
+result = int(1e9)
+# 1번 스위치를 누르지 않기
+s = deepcopy(start)
+result = min(result, switch(s, end))
+
+s = deepcopy(start)
+# 1번 스위치를 누르기
+s[0] = int(not s[0])
+s[1] = int(not s[1])
+result = min(result, switch(s, end) + 1)
+
+if result == int(1e9):
+    print(-1)
+else:
+    print(result)
