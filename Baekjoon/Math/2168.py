@@ -13,11 +13,10 @@ x, y = map(int, input().split())
 
 # 최대 공약수 구하기
 def find_gcd(x, y):
-    a, b = x, y
-    while b != 0:
-        r = a % b
-        a, b = b, r
-    return a
+    while x % y != 0:
+        r = x % y
+        x, y = y, r
+    return y
 
 
 gcd = find_gcd(x, y)
