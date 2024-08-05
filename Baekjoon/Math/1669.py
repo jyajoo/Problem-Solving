@@ -24,3 +24,27 @@ else:
         print(n * 2)
     else:
         print(n * 2 + 1)
+'''
+'''
+from sys import stdin
+from math import sqrt
+
+input = stdin.readline
+
+x, y = map(int, input().split())
+
+
+diff = y - x
+n = int(sqrt(diff))
+
+result = 0
+if diff == 0:
+    result = 0
+elif n * n == diff:
+    result = n + (n - 1)
+else:
+    result = n + (n - 1)
+    result += (diff - (n * n) - 1) // n + 1
+
+
+print(result)
