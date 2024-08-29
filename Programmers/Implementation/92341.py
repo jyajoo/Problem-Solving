@@ -3,6 +3,7 @@
 
 < 주차 요금 계산 >
 """
+
 import math
 
 
@@ -80,3 +81,41 @@ records = [
 # records = ["00:00 1234 IN"]
 
 print(solution(fees, records))
+
+"""
+"""
+from collections import defaultdict
+import math
+
+
+def solution(fees, records):
+    time, fee, unit_time, unit_fee = fees
+    cars = defaultdict(list)
+    for record in records:
+        time_record, car_num, enter = record.split()
+        hour, minute = map(int, time_record.split(":"))
+        cars[car_num].append(60 * hour + minute)
+
+    result = []
+
+    for car_num, record in cars.items():
+        # 총 이용 시간 계산
+        total_time = 0
+        for i in range(0, len(record), 2):
+            in_time = record[i]
+            out_time = 23 * 60 + 59
+            if i + 1 < len(record):
+                out_time = record[i + 1]
+            total_time += out_time - in_time
+
+        # 요금 계산
+        total_fee = fee  # 기본 요금
+        total_time -= time  # 기본 시간 제외
+        if total_time > 0:
+            total_time = math.ceil(total_time / unit_time)
+            total_fee += total_time * unit_fee
+
+        result.append((car_num, total_fee))
+
+    result.sort()
+    return [i[1] for i in result]
