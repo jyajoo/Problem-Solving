@@ -17,3 +17,18 @@ def solution(elements):
                 n = sum(elements[start:] + elements[: end % length])
             result.add(n)
     return len(result)
+
+
+"""
+"""
+
+
+def solution(elements):
+    length = len(elements)
+    elements = elements * 2
+    answer = set()
+    for i in range(1, length + 1):
+        for start in range(length):
+            answer.add(sum(elements[start : start + i]))
+
+    return len(answer)
