@@ -9,15 +9,8 @@ import sys
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-memo_keywords = dict()
-for _ in range(n):
-    keyword = input().strip()
-    if keyword not in memo_keywords:
-        memo_keywords[keyword] = 1
-
+memo_keywords = set(input().strip() for _ in range(n))
 for _ in range(m):
-    arr = input().strip().split(",")
-    for keyword in arr:
-        if keyword in memo_keywords:
-            del memo_keywords[keyword]
+    arr = set(input().strip().split(","))
+    memo_keywords -= arr
     print(len(memo_keywords))
