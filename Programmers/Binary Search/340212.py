@@ -31,3 +31,28 @@ def solution(diffs, times, limit):
             start = middle + 1
 
     return answer
+
+
+"""
+"""
+
+
+def solution(diffs, times, limit):
+    start, end = min(diffs), max(diffs)
+    answer = int(1e9)
+    while start <= end:
+        middle = (start + end) // 2
+        total_time = 0
+        for idx in range(len(diffs)):
+            diff = diffs[idx]
+            time = times[idx]
+            if middle >= diff:
+                total_time += time
+            else:
+                total_time += (diff - middle) * (time + times[idx - 1]) + time
+        if total_time <= limit:
+            answer = min(answer, middle)
+            end = middle - 1
+        else:
+            start = middle + 1
+    return answer
