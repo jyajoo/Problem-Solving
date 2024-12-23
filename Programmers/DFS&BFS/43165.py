@@ -63,3 +63,21 @@ def solution(numbers, target):
     dfs(0, 0, numbers, target)
 
     return answer
+
+'''
+'''
+def solution(numbers, target):
+    answer = 0
+    def dfs(step, result):
+        nonlocal answer 
+        if step == len(numbers):
+            if result == target:
+                answer += 1
+            return
+        
+        n = numbers[step]
+        dfs(step + 1, result + n)
+        dfs(step + 1, result - n)
+    
+    dfs(0, 0)
+    return answer
