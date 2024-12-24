@@ -80,3 +80,20 @@ def solution(topping):
             answer += 1
 
     return answer
+'''
+'''
+from collections import Counter, defaultdict
+
+def solution(topping):
+    count1 = defaultdict(int)
+    count2 = dict(Counter(topping))
+    
+    answer = 0
+    for t in topping:
+        count2[t] -= 1
+        count1[t] += 1
+        if count2[t] == 0:
+            del count2[t]
+        if len(count1) == len(count2):
+            answer += 1
+    return answer
