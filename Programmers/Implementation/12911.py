@@ -12,3 +12,16 @@ def solution(n):
         if format(n, "b").count("1") == count:
             break
     return n
+
+
+"""
+"""
+
+
+def solution(n):
+    one_count = bin(n)[2:].count("1")
+
+    while True:
+        n += 1
+        if bin(n)[2:].count("1") == one_count:
+            return n
