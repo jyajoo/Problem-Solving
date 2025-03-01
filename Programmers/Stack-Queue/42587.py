@@ -27,3 +27,26 @@ def solution(priorities, location):
             lst.append((x, y))
 
     return answer
+
+'''
+'''
+from collections import deque
+
+def solution(priorities, location):
+    q = deque()
+    for idx, priority in enumerate(priorities):
+        q.append((idx, priority))
+    
+    count = 0
+    while q:
+        a, b = q.popleft()
+        
+        for idx, priority in q:
+            if priority > b:
+                q.append((a, b))
+                break
+        else:
+            count += 1
+            if a == location:
+                return count
+        
