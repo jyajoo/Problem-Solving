@@ -44,3 +44,23 @@ def solution(s):
                 answer.append(i[j])
 
     return answer
+
+'''
+'''
+def solution(s):
+    s = s[1:-1]
+    s = s.replace('}', '')
+    s = s.replace(',', ' ')
+    s = s.split('{')
+    arr = []
+    for i in s:
+        if len(i) != 0:
+            arr.append(list(map(int, i.strip().split(' '))))
+    arr.sort(key = lambda x : len(x))
+    answer = []
+    for i in arr:
+        sa = set(answer)
+        si = set(i)
+        ss = list(si - sa)
+        answer.append(ss[0])
+    return answer
