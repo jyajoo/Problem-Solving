@@ -21,3 +21,23 @@ def solution(k, dungeons):
         answer = max(answer, count)
 
     return answer
+
+'''
+'''
+from itertools import permutations
+def solution(k, dungeons):
+    answer = 0
+    
+    for perm in permutations([i for i in range(len(dungeons))], len(dungeons)):
+        health = k
+        count = 0
+        for idx in perm:
+            x, y = dungeons[idx]
+            if health >= x:
+                health -= y
+                count += 1
+        answer = max(answer, count)
+    
+    return answer
+    
+    
