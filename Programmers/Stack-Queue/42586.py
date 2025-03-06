@@ -22,3 +22,27 @@ def solution(progresses, speeds):
             prev = day
 
     return answer
+
+'''
+'''
+def solution(progresses, speeds):
+    answer = []
+    ex_time = -1
+    count = 0
+    for idx, progress in enumerate(progresses):
+        time = (100 - progress) // speeds[idx]
+        if (100 - progress) % speeds[idx] != 0:
+            time += 1
+        
+        if ex_time < time:
+            ex_time = time
+            if idx != 0:
+                answer.append(count)
+            count = 1
+            
+        elif time <= ex_time:
+            count += 1
+            
+    answer.append(count)
+    
+    return answer
