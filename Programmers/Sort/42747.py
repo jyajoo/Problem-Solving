@@ -33,3 +33,17 @@ def solution(citations):
         if x >= h and y <= h:
             return h
     return 0
+'''
+'''
+def solution(citations):
+    n = len(citations)
+    for h in range(max(citations), -1, -1):
+        count, count2 = 0, 0
+        for i in citations:
+            if i >= h:
+                count += 1
+            else:
+                count2 += 1
+        if count >= h and count2 <= h:
+            return h
+    return 0
