@@ -38,3 +38,20 @@ def solution(clothes):
     for i in wear:
         answer *= i + 1
     return answer - 1
+
+
+"""
+"""
+from collections import defaultdict
+
+
+def solution(clothes):
+    closet = defaultdict(int)
+    for _, type in clothes:
+        closet[type] += 1
+
+    answer = 1
+    for i in closet.values():
+        answer *= i + 1
+
+    return answer - 1
