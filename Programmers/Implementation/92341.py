@@ -119,3 +119,42 @@ def solution(fees, records):
 
     result.sort()
     return [i[1] for i in result]
+
+'''
+'''
+from collections import defaultdict
+def solution(fees, records):
+
+    fee_list = defaultdict(int)
+    in_list = dict()
+    for record in records:
+        time, car, type = record.split()
+        if type == 'IN':
+            in_list[car] = time
+        else:
+            in_time = in_list[car]
+            in_hour, in_minute = map(int, in_time.split(':'))
+            out_hour, out_minute = map(int, time.split(':'))
+            use_time = (out_hour * 60 + out_minute) - (in_hour * 60 + in_minute)
+            fee_list[car] += use_time
+            del in_list[car]
+    
+    for car, in_time in in_list.items():
+        in_hour, in_minute = map(int, in_time.split(':'))
+        use_time = (23 * 60 + 59) - (in_hour * 60 + in_minute)
+        fee_list[car] += use_time
+    
+    fee_list = list(fee_list.items())
+    fee_list.sort()
+    answer = []
+    basic_time, basic_fee, unit_time, unit_fee = fees
+    for (_, time) in fee_list:
+        f = basic_fee
+        if time > basic_time:
+            t = int((time - basic_time) / unit_time)
+            if (time - basic_time) % unit_time != 0:
+                t += 1
+            f += t * unit_fee
+        answer.append(f)
+    
+    return answer
