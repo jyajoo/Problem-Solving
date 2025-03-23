@@ -58,3 +58,23 @@ def solution(scoville, K):
         answer += 1
 
     return answer
+'''
+'''
+import heapq
+def solution(scoville, K):
+    answer = 0
+    heapq.heapify(scoville)
+    
+    while True:            
+        a = heapq.heappop(scoville)
+        if a >= K:
+            break
+        if len(scoville) == 0:
+            answer = -1
+            break
+        b = heapq.heappop(scoville)
+        k = a + (b * 2)
+        heapq.heappush(scoville, k)
+        answer += 1
+    
+    return answer
