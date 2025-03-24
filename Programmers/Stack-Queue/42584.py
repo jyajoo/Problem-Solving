@@ -41,3 +41,22 @@ def solution(prices):
         answer[x] = len(prices) - 1 - x
 
     return answer
+
+'''
+'''
+from collections import deque
+def solution(prices):
+    answer = [0] * len(prices)
+    q = deque()
+    
+    for idx, i in enumerate(prices):
+        for _ in range(len(q)):
+            x, n, cnt = q.popleft()
+            if n <= i:
+                cnt += 1
+                q.append((x, n, cnt))
+                answer[x] = cnt
+            else:
+                answer[x] = cnt + 1
+        q.append((idx, i, 0))
+    return answer
