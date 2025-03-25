@@ -99,3 +99,30 @@ def solution(n, k):
             answer += 1
 
     return answer
+
+'''
+'''
+def solution(n, k):
+    def change(n, k):
+        number = ''
+        while n != 0:
+            number += str(n % k)
+            n //= k
+        return number[::-1]
+    
+    def isPrime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n ** (1 / 2)) + 1):
+            if n % i == 0:
+                return False
+        return True
+        
+    number = change(n, k)
+    num_list = number.split('0')
+    answer = 0
+    for i in num_list:
+        if len(i) != 0 and isPrime(int(i)):
+            answer += 1
+    
+    return answer
