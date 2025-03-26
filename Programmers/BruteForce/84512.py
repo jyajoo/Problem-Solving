@@ -49,3 +49,24 @@ def solution(word):
     global answer
     dfs("", word)
     return answer
+
+'''
+'''
+def solution(word):
+    alpha = ['A', 'E', 'I', 'O', 'U']
+    answer = 0
+    step = 4
+    while word:
+        count = 0
+        for i in range(step, -1, -1):
+            count += 5 ** i
+        
+        for i in alpha:
+            if word.startswith(i):
+                word = word[1:]
+                step -= 1
+                answer += 1
+                break
+            answer += count
+    return answer
+        
