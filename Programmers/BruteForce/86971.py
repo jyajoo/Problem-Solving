@@ -43,3 +43,36 @@ def solution(n, wires):
         graph[b].append(a)
 
     return answer
+'''
+'''
+from collections import deque
+def solution(n, wires):
+    def bfs(a, b):
+        visited = [False] * (n + 1)
+        q = deque()
+        q.append(a)
+        visited[a] = True
+        cnt = 0
+        while q:
+            a = q.popleft()
+            cnt += 1
+            for x in graph[a]:
+                if not visited[x] and x != b:
+                    visited[x] = True
+                    q.append(x)
+        return cnt
+                
+            
+    answer = int(1e9)
+    graph = [[] for _ in range(n + 1)]
+    for a, b in wires:
+        graph[a].append(b)
+        graph[b].append(a)
+    
+    for a, b in wires:
+        cnt1 = bfs(a, b)
+        cnt2 = bfs(b, a)
+        answer = min(answer, abs(cnt1 - cnt2))
+    
+    
+    return answer
