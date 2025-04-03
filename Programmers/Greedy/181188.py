@@ -31,3 +31,15 @@ def solution(targets):
         answer.append(e - 0.5)
 
     return len(answer) - 1
+'''
+'''
+def solution(targets):
+    targets.sort(key = lambda x : (x[1]))
+    answer = 1
+    prev = targets[0][1] - 1
+    for idx, (x, y) in enumerate(targets[1:]):
+        if x > prev or prev > y:
+            answer += 1
+            prev = y - 1
+    
+    return answer
