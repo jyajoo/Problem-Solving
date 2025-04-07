@@ -46,3 +46,46 @@ def solution(cap, n, deliveries, pickups):
 
         answer += dist * 2
     return answer
+
+'''
+'''
+import heapq
+
+def solution(cap, n, deliveries, pickups):
+    answer = 0
+    delivery_heapq = []    
+    for i, d in enumerate(deliveries):
+        if d > 0:
+            heapq.heappush(delivery_heapq, (-(i + 1), d))
+    pickup_heapq = []    
+    for i, p in enumerate(pickups):
+        if p > 0:
+            heapq.heappush(pickup_heapq, (-(i + 1), p))
+    
+    while delivery_heapq or pickup_heapq:
+        cap_d = cap
+        cap_p = cap
+        max_dist = 0
+        while delivery_heapq and cap_d > 0:
+            dist, delivery = heapq.heappop(delivery_heapq)
+            max_dist = max(max_dist, -dist)
+            
+            if cap_d >= delivery:
+                cap_d -= delivery
+            else:
+                delivery -= cap_d
+                cap_d = 0
+                heapq.heappush(delivery_heapq, (dist, delivery))
+            
+        while pickup_heapq and cap_p > 0:
+            dist, pickup = heapq.heappop(pickup_heapq)
+            max_dist = max(max_dist, -dist)
+        
+            if cap_p >= pickup:
+                cap_p -= pickup
+            else:
+                pickup -= cap_p
+                cap_p = 0
+                heapq.heappush(pickup_heapq, (dist, pickup))
+        answer += max_dist * 2
+    return answer
