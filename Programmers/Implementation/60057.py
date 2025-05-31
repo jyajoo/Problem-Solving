@@ -30,3 +30,37 @@ def solution(s):
 
 s = "aabbaccc"
 print(solution(s))
+
+'''
+'''
+def solution(s):
+    answer = len(s)
+    
+    for unit in range(len(s), 0, -1):
+        ex_word, new_word = s[:unit], ''
+        unit_cnt = 1
+        result = ''
+
+        for idx in range(unit, len(s), unit):
+            new_word = s[idx:idx + unit]
+            
+            if ex_word == new_word:
+                unit_cnt += 1
+                
+            elif ex_word != new_word:
+                if unit_cnt > 1:
+                    result += str(unit_cnt)
+                    unit_cnt = 1
+                result += ex_word
+                ex_word = new_word
+
+        if ex_word != new_word:
+            result += ex_word
+            result += new_word
+        else:
+            if unit_cnt > 1:
+                result += str(unit_cnt)
+            result += new_word
+        answer = min(answer, len(result))
+                
+    return answer

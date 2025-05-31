@@ -56,3 +56,30 @@ def solution(diffs, times, limit):
         else:
             start = middle + 1
     return answer
+'''
+'''
+def solution(diffs, times, limit):
+    answer = int(1e9)
+    answer_time = int(1e9)
+    start = 1
+    end = max(diffs)
+    
+    while start <= end:
+        level = (start + end) // 2
+        result = 0
+        time_prev = 0
+        for diff, time_cur in zip(diffs, times):
+            if diff <= level:
+                result += time_cur
+            else:
+                result += (diff - level) * (time_cur + time_prev) + time_cur
+            time_prev = time_cur
+        if result <= limit:
+            if answer > level:
+                answer_time = result
+                answer = level
+            end = level - 1
+        else:
+            start = level + 1
+            
+    return answer

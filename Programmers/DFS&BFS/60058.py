@@ -48,3 +48,51 @@ def solution(p):
         answer += "".join(u)
 
     return answer
+'''
+'''
+from collections import deque
+def solution(p):
+    # 올바른 괄호 문자열인지 여부 파악
+    def check(w):
+        que = deque()
+        for i in w:
+            if i == '(':
+                que.append('(')
+            else:
+                if que:
+                    que.popleft()
+                else:
+                    return False
+        if que:
+            return False
+        return True
+        
+    def func(w):
+        if w == '':
+            return ''
+        
+        u, v = '', ''
+        for idx, i in enumerate(w):
+            u += i
+            if u.count('(') == u.count(')'): # 균형잡힌 문자열
+                v = w[idx + 1:]
+                break
+        
+        if check(u):
+            u += func(v)
+        else:
+            u = u[1:-1] # 첫 번째, 마지막 문자 제거
+            new_u = ''
+            for i in u:
+                if i == '(':
+                    new_u += ')'
+                else:
+                    new_u += '('
+            u = '(' + func(v) + ')' + new_u
+        return u
+    
+    if check(p):
+        return p
+    x = func(p)
+    return x
+            

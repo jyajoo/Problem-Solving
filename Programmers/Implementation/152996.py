@@ -32,3 +32,22 @@ def solution(weights):
                 answer += w[a] * w[b]
 
     return answer
+'''
+'''
+from itertools import combinations
+from collections import Counter
+
+def solution(weights):
+    answer = 0
+    counter = dict(Counter(weights))
+    weights = list(counter.keys())
+    weights.sort()
+
+    for i in counter.values():
+        if i > 1:
+            answer += (i * (i - 1)) / 2
+    
+    for (a, b) in combinations(weights, 2):
+        if a * 4 == b * 2 or a * 3 == b * 2 or a * 4 == b * 3:
+                answer += counter[a] * counter[b]
+    return answer

@@ -130,3 +130,57 @@ def solution(n, info):
     else:
         answer.sort(reverse=True, key=lambda x: (x[10::-1]))
         return answer[0]
+
+'''
+'''
+def solution(n, info):
+    def lion_win(lion):
+        peach_score, lion_score = 0, 0
+        for i in range(11):
+            score = 10 - i
+            if lion[i] == info[i] == 0:
+                continue
+            if lion[i] > info[i]:
+                lion_score += score
+            else:
+                peach_score += score
+        if lion_score > peach_score:
+            return abs(lion_score - peach_score)
+        return -1
+    
+    
+    def dfs(step, n, lion):
+        nonlocal answer, score_diff
+        if step == 11:
+            diff = lion_win(lion)
+            if diff != -1:
+                if score_diff < diff:
+                    answer = []
+                    answer.append(lion.copy())
+                    score_diff = diff
+                elif score_diff == diff:
+                    answer.append(lion.copy())
+            return
+        
+        peach_cnt = info[step]
+        if n >= peach_cnt + 1:
+            lion[step] = peach_cnt + 1
+            if step == 10:
+                lion[step] = n
+            dfs(step + 1, n - (peach_cnt + 1), lion)
+            lion[step] = 0
+        if step == 10:
+            lion[step] = n
+        dfs(step + 1, n, lion)
+        lion[step] = 0
+    
+    answer = []
+    score_diff = 0    
+    lion = [0] * 11
+    dfs(0, n, lion)
+    
+    answer.sort(key = lambda x : x[::-1], reverse = True)
+    
+    if answer: 
+        return answer[0]
+    return [-1]
