@@ -90,3 +90,21 @@ while True:
         result += 1
         break
 print(result)
+
+'''
+'''
+a, b = map(int, input().split())
+result = 1
+
+while b > a:
+    if b % 2 == 0:
+        b //= 2
+    elif b % 10 == 1:
+        b //= 10
+    else:
+        break
+    result += 1
+
+if b != a:
+    result = -1
+print(result)
