@@ -56,3 +56,37 @@ while True:
     result += 1
 
 print(result)
+
+'''
+A -> B로 찾아가는 방식은 두 갈래로 계속 갈라지는데, B -> A로 가는 방식은 어떨까?
+
+1. 2로 나누어떨어진다면 2로 무조건 나눌 수 있다.
+2. 일의 자리가 1이 라면 1을 무조건 뗄 수 있다
+3. 둘다 불가능하다면 A를 만들 수 없다.
+
+그리디 - 순간 가장 좋은 것을 선택하는 알고리즘
+
+시간복잡도는 O(logB)
+'''
+a, b = map(int, input().split())
+result = 0
+
+while True:
+    if b < a:
+        result = -1
+        break
+
+    if b % 2 == 0:
+        result += 1
+        b //= 2
+    elif str(b)[-1] == '1':
+        result += 1
+        b = int(str(b)[:-1])
+    else:
+        result = -1
+        break
+
+    if b == a:
+        result += 1
+        break
+print(result)
