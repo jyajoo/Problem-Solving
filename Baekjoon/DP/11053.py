@@ -48,3 +48,34 @@ result = 0
 for i in dp:
     result = max(result, len(i))
 print(result)
+
+'''
+수열의 마지막 원소(최소값)를 기록해나가기
+dp[i - 1] = 길이가 i인 수열의 최소값이 되는 마지막 원소
+
+arr의 원소를 순차적으로 탐색하며 해당 원소를 어느 배열에 삽입할 지 이진탐색
+=> dp에서 arr의 원소보다 크거나 같은 첫번째 원소의 위치에 arr의 원소 반영
+이는 아래와 같은 의미를 가진다
+1. 해당 위치의 값 >= arr의 원소 경우, 수열의 마지막 원소의 최소값으로 업데이트
+2. 해당 위치의 값 < arr의 원소 경우, 수열의 길이 확장
+
+시간 복잡도는 O(NlogN)
+'''
+import sys
+from bisect import bisect_left
+
+input = sys.stdin.readline
+
+n = int(input())
+arr = list(map(int, input().split()))
+
+dp = [arr[0]]
+
+for i in arr:
+    idx = bisect_left(dp, i)
+    if idx == len(dp):
+        dp.append(i)
+    else:
+        dp[idx] = i
+
+print(len(dp))
