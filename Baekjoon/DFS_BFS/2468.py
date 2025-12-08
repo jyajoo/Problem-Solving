@@ -52,3 +52,44 @@ for i in range(max_h + 1):
                 count += 1
     result = max(result, count)
 print(result)
+'''
+DFS(비재귀)
+'''
+import sys
+input = sys.stdin.readline
+
+def dfs(x, y, h):
+    global visited
+    stack = []
+    stack.append((x, y))
+    visited[x][y] = True
+    while stack:
+        x, y = stack.pop()
+        for dx, dy in direction:
+            nx = x + dx
+            ny = y + dy
+            if 0 <= nx < n and 0 <= ny < n and board[nx][ny] > h and not visited[nx][ny]:
+                visited[nx][ny] = True
+                stack.append((nx, ny))
+
+n = int(input())
+board = []
+max_h = 0
+direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+for _ in range(n):
+    arr = list(map(int, input().split()))
+    board.append(arr)
+    max_h = max(max_h, max(arr))
+
+result = 0
+for i in range(max_h + 1):
+    visited = [[False] * n for _ in range(n)]
+    count = 0
+    for x in range(n):
+        for y in range(n):
+            if board[x][y] > i and not visited[x][y]:
+                dfs(x, y, i)
+                count += 1
+
+    result = max(result, count)
+print(result)
