@@ -93,3 +93,46 @@ for x in range(n):
             count2 += 1
 
 print(count, count2)
+'''
+'''
+import sys
+input = sys.stdin.readline
+
+def dfs(x, y, k):
+    global visited
+    stack = []
+    stack.append((x, y))
+    visited[x][y] = True
+    while stack:
+        x, y = stack.pop()
+        for dx, dy in direction:
+            nx = x + dx
+            ny = y + dy
+            if 0 <= nx < n and 0 <= ny < n and board[nx][ny] == k and not visited[nx][ny]:
+                visited[nx][ny] = True
+                stack.append((nx, ny))
+
+n = int(input())
+board = []
+direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+for _ in range(n):
+    board.append(list(input().strip()))
+
+visited = [[False] * n for _ in range(n)]
+count = count2 = 0
+for x in range(n):
+    for y in range(n):
+        if not visited[x][y]:
+            dfs(x, y, board[x][y])
+            count += 1
+
+for i in range(n):
+    board[i] = list(''.join(board[i]).replace('G', 'R'))
+visited = [[False] * n for _ in range(n)]
+for x in range(n):
+    for y in range(n):
+        if not visited[x][y]:
+            dfs(x, y, board[x][y])
+            count2 += 1
+
+print(count, count2)
