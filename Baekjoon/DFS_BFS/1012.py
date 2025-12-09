@@ -83,3 +83,43 @@ for _ in range(t):
                 result += 1
                 dfs(x, y)
     print(result)
+'''
+BFS로 인접한 배추 탐색
+'''
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def bfs(x, y):
+    global visited
+    q = deque([])
+    q.append((x, y))
+    visited[x][y] = True
+    delta = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+    while q:
+        x, y = q.popleft()
+        for dx, dy in delta:
+            nx = x + dx
+            ny = y + dy
+            if 0 <= nx < n and 0 <= ny < m and board[nx][ny] and not visited[nx][ny]:
+                visited[nx][ny] = True
+                q.append((nx, ny))
+
+t = int(input())
+for _ in range(t):
+    m, n, k = map(int, input().split())
+    board = [[0] * m for _ in range(n)]
+    visited = [[False] * m for _ in range(n)]
+    result = 0
+    for _ in range(k):
+        x, y = map(int, input().split())
+        board[y][x] = 1
+
+    for x in range(n):
+        for y in range(m):
+            if board[x][y] and not visited[x][y]:
+                bfs(x, y)
+                result += 1
+
+    print(result)
