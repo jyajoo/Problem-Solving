@@ -21,25 +21,3 @@ for i in range(1, n):
     answer = max(answer, dp[i][1])
 
 print(answer)
-
-'''
-이진탐색으로 새로운 수를 추가할 것인지,
-아니면 기존의 수를 더 작은 수로 교체할 것인지 판가름이 가능ㅇ
-'''
-import sys
-from bisect import bisect_left
-
-input = sys.stdin.readline
-
-n = int(input())
-arr = list(map(int, input().split()))
-dp = [arr[0]]
-
-for i in range(1, n):
-    idx = bisect_left(dp, arr[i])
-    if idx == len(dp):
-        dp.append(arr[i])
-    else:
-        dp[idx] = arr[i]
-
-print(len(dp))
