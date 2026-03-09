@@ -30,3 +30,21 @@ for _ in range(t):
             a, b = new[i], new[i + 1]
         answer = max(answer, abs(a - b))
     print(answer)
+'''
+'''
+import sys
+input = sys.stdin.readline
+
+t = int(input())
+for _ in range(t):
+    n = int(input())
+    trees = list(map(int, input().split()))
+    trees.sort()
+    answer = 0
+    for i in range(n - 1):
+        if i == 0 or i == n - 2:
+            answer = max(answer, abs(trees[i] - trees[i + 1]))
+        if i != n - 2:
+            answer = max(answer, abs(trees[i] - trees[i + 2]))
+
+    print(answer)
