@@ -108,3 +108,28 @@ while b > a:
 if b != a:
     result = -1
 print(result)
+
+'''
+'''
+import sys
+
+input = sys.stdin.readline
+
+def culculate(now, count):
+    global answer
+
+    if now == b:
+        answer = min(answer, count)
+
+    if now * 2 <= b:
+        culculate(now * 2, count + 1)
+    if int(str(now) + '1') <= b:
+        culculate(int(str(now) + '1'), count + 1)
+
+a, b = map(int, input().split())
+answer = int(1e9)
+culculate(a, 1)
+if answer == int(1e9):
+    print(-1)
+else:
+    print(answer)

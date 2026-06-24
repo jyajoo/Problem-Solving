@@ -136,3 +136,47 @@ for x in range(n):
             count2 += 1
 
 print(count, count2)
+'''
+'''
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def bfs(a, b):
+    global visited
+    visited[a][b] = True
+    
+    q = deque()
+    q.append((a, b))
+    while q:
+        x, y = q.popleft()
+        for dx, dy in direction:
+            nx = x + dx
+            ny = y + dy
+            if nx >= 0 and nx < n and ny >= 0 and ny < n and not visited[nx][ny] and board[x][y] == board[nx][ny]:
+                visited[nx][ny] = True
+                q.append((nx, ny))
+
+n = int(input())
+board = [input().strip() for _ in range(n)]
+direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+visited = [[False] * n for _ in range(n)]
+count = 0
+for i in range(n):
+    for j in range(n):
+        if not visited[i][j]:
+            count += 1
+            bfs(i, j)
+
+for i in range(n):
+    board[i] = board[i].replace('R', 'G')
+
+visited = [[False] * n for _ in range(n)]
+count2 = 0
+for i in range(n):
+    for j in range(n):
+        if not visited[i][j]:
+            count2 += 1
+            bfs(i, j)
+print(count, count2)
